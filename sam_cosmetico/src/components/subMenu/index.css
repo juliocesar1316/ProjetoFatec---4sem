@@ -1,0 +1,12 @@
+
+.subMenu a{
+    text-decoration: none;
+    color: #000;
+}
+
+.subMenu{
+    display: flex;
+    justify-content:center;
+    gap: 5%;
+    margin-top: 3%;
+}
