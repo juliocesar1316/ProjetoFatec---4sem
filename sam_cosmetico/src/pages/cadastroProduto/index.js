@@ -3,22 +3,158 @@ import Header from "../../components/header";
 import Menu from "../../components/menu";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputLabel from '@mui/material/InputLabel';
+import Produto from '../../assets/produto.png';
+import FormControl from '@mui/material/FormControl';
+import baseURL from "../../utils";
 
 function CadastroProduto(){
-    const [categoria, setCategoria] = useState('')
-    const [marca, setMarca] = useState('')
+    const [selectCategoria, setSelectCategoria] = useState('')
+    const [selectMarca, setSelectMarca] = useState('')
+    const [listCategoria, setListCategoria] = useState([])
+    const [listMarca, setListMarca] = useState([])
+    const [status, setStatus] = useState('')
 
-    const handleChangeCategoria = (SelectChangeEvent) => {
-        setCategoria(SelectChangeEvent.target.value);
-    };
+    const [nomeMarca, setNomeMarca] = useState('')
+    const [descricaoMarca, setDescricaoMarca] = useState('')
 
-    const handleChangeMarca = (SelectChangeEvent) => {
-        setMarca(SelectChangeEvent.target.value);
-    };
+    const [nomeCategoria, setNomeCategoria] = useState('')
+    const [descricaoCategoria, setDescricaoCategoria] = useState('')
+
+    const [nomeProduto, setNomeProduto] = useState('')
+    const [subNomeProd, setSubNomeProd] = useState('')
+    const [precoUnit, setPrecoUnit] = useState('')
+    const [quantidade, setQuantidade] = useState('')
+    const [linhaProduto, setLinhaProduto] = useState('')
+    const [descricaoProduto, setDescricaoProduto] = useState('')
+
+    const[file, setFile] = useState('')
+    const[fileName, setFileName] = useState('')
+
+    
+    async function handleSubmitProd(event){
+        event.preventDefault()
+        const dadosProd = {
+            tituloProduto: nomeProduto,
+            subTituloProduto: subNomeProd,
+            preco: precoUnit,
+            descricao: descricaoProduto,
+            categoria: selectCategoria,
+            marca: selectMarca,
+            quantidade:quantidade,
+            linha: linhaProduto
+        }  
+        const formData = new FormData();
+        formData.append(
+            "picture catalog",
+            new Blob([JSON.stringify(dadosProd)], {
+                type: "application/json",
+            })
+        );
+        formData.append("file", file);
+        
+        try {
+            const headers = new Headers({
+                "Content-Type": "application/json",
+              });
+
+            await fetch(`${baseURL}/produto/cadastro_produto`, {
+              method: "POST",
+              headers: headers,
+              body: formData
+            });
+      
+            setNomeProduto('')
+            setSubNomeProd('')
+            setPrecoUnit('')
+            setDescricaoProduto('')
+            setSelectCategoria('')
+            setSelectMarca('')
+            setQuantidade('')
+            setLinhaProduto('')
+            setFile('')
+            return;
+
+          } catch (error) {
+            return console.log(error.message);
+          }
+    }
+
+    async function handleSubmitCat(event){
+        event.preventDefault()
+        const dadosCategoria = {
+            nomeCategoria: nomeCategoria,
+	        descricaoCategoria:descricaoCategoria
+        }
+        try {
+            await fetch(`${baseURL}/categoria/cadastro_categoria`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(dadosCategoria),
+            });
+      
+            setNomeCategoria('')
+            setDescricaoCategoria('')
+            setStatus('ok')
+            return;
+            
+          } catch (error) {
+            return console.log(error.message);
+          }
+    }
+
+    async function handleSubmitMarca(event){
+        const dadosMarca = {
+            nomeMarca: nomeMarca,
+	        descricaoMarca:descricaoMarca
+        }
+
+        try {
+            await fetch(`${baseURL}/marca/cadastro_marca`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(dadosMarca),
+            });
+      
+            setNomeMarca('')
+            setDescricaoMarca('')
+            setStatus('ok')
+
+            return;
+            
+          } catch (error) {
+            return console.log(error.message);
+          }
+    }
+
+    async function buscaDados(){
+        try {
+            const reponseMarca = await fetch(`${baseURL}/marca/lista_marca`)
+            const dadosMarca = await reponseMarca.json()
+            setListMarca(dadosMarca)
+
+            const reponseCategoria = await fetch(`${baseURL}/categoria/lista_categoria`)
+            const dadosCategoria = await reponseCategoria.json()
+            setListCategoria(dadosCategoria)
+            return;
+
+        } catch (error) {
+            return console.log(error.message);
+        }
+    }
+
+    useEffect (()=>{
+        buscaDados();
+    }, [status])
+
+    
 
     return(
         <div className="containerCadProd">
@@ -32,108 +168,214 @@ function CadastroProduto(){
                 <h1>Cadastro</h1>
             </div>
             <div className="bodyCad">
-                <div className="cadMarca">
-                    <h2>Marca</h2>
-                    <TextField
-                        id="filled-search"
-                        label="Nome Marca"
-                        type="search"
-                    />
-                    <TextField
-                        id="outlined-multiline-static"
-                        label="Descrição"
-                        multiline
-                        rows={4}
-                    />
-                    <Button variant="contained" size="medium">
-                        Enviar
-                    </Button>
+                <div className="cadMarCate">
+                    <div className="cadMarca">
+                        <h2>Marca</h2>
+                        <TextField
+                            id="filled-input"
+                            label="Nome Marca"
+                            type="input"
+                            value ={nomeMarca}
+                            onChange = {(e) => setNomeMarca(e.target.value)}
+                        />
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Descrição"
+                            multiline
+                            rows={4}
+                            value = {descricaoMarca}
+                            onChange = {(e) => setDescricaoMarca(e.target.value)}
+                        />
+                        <div>
+                            <Button 
+                                variant="contained" 
+                                size="medium"
+                                onClick={handleSubmitMarca}
+                                >
+                                Enviar
+                            </Button>
+                        </div>
+                       
+                    </div>
+                    <div className="cadCategoria">
+                        <h2>Categoria</h2>
+                        <TextField
+                            id="filled-input"
+                            label="Nome Categoria"
+                            type="input"
+                            value={nomeCategoria}
+                            onChange = {(e) => setNomeCategoria(e.target.value)}
+                        />
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Descrição"
+                            multiline
+                            rows={4}
+                            value={descricaoCategoria}
+                            onChange = {(e) => setDescricaoCategoria(e.target.value)}
+                        />
+                        <div>
+                            <Button 
+                                variant="contained" 
+                                size="medium"
+                                onClick={handleSubmitCat}
+                            >
+                                Enviar
+                            </Button>
+                        </div>
+                       
+                    </div>
                 </div>
-                <div className="cadCategoria">
-                    <h2>Categoria</h2>
-                    <TextField
-                        id="filled-search"
-                        label="Nome Categoria"
-                        type="search"
-                    />
-                    <TextField
-                        id="outlined-multiline-static"
-                        label="Descrição"
-                        multiline
-                        rows={4}
-                    />
-                    <Button variant="contained" size="medium">
-                        Enviar
-                    </Button>
-                </div>
-
-
+                
                 <div className="cadProduto">
                     <h2>Produto</h2>
-                    <div>
+                    <div className="cadLayout">
                         <div className="cadDados">
                             <TextField
-                            id="filled-search"
+                            id="filled-input"
                             label="Nome Produto"
-                            type="search"
+                            type="input"
+                            value={nomeProduto}
+                            onChange = {(e)=> setNomeProduto(e.target.value)}
                             />
                             <TextField
-                                id="filled-search"
+                                id="filled-input"
                                 label="SubNome Produto"
-                                type="search"
+                                type="input"
+                                value={subNomeProd}
+                                onChange = {(e)=> setSubNomeProd(e.target.value)}
                             />
                             <TextField
-                                id="filled-search"
+                                id="filled-input"
                                 label="Preço Unitario"
                                 type="number"
+                                value={precoUnit}
+                                onChange = {(e)=> setPrecoUnit(e.target.value)}
                             />
-                            <InputLabel id="select-categoria">Categoria</InputLabel>
-                            <Select
-                                labelId="select-categoria"
-                                id="select-categoria"
-                                value={categoria}
-                                label="Categoria"
-                                onChange={handleChangeCategoria}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
                             
-                            <InputLabel id="select-marca-label">Marca</InputLabel>
-                            <Select
-                                labelId="select-marca-label"
-                                id="select-marca"
-                                value={marca}
-                                label="Marca"
-                                onChange={handleChangeMarca}
-                                >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={10}>Ten</MenuItem>
-                                <MenuItem value={20}>Twenty</MenuItem>
-                                <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
+                            <FormControl fullWidth>
+                                <InputLabel id="select-marca-label">Marca</InputLabel>
+                                <Select
+                                    labelId="select-marca-label"
+                                    id="select-marca"
+                                    value={selectMarca}
+                                    label="Marca"
+                                    onChange={(e)=>setSelectMarca(e.target.value)}
+                                    >
+                                    {
+                                        listMarca.map((x)=>{
+                                            return(
+                                                <MenuItem value={x.nomeMarca} key={x.id}>
+                                                    {x.nomeMarca}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
+                                    
+                                </Select>
+                            </FormControl>
+
+                            <FormControl fullWidth>
+                                <InputLabel id="select-categoria-label">Categoria</InputLabel>
+                                <Select
+                                    labelId="select-categoria-label"
+                                    id="select-categoria"
+                                    value={selectCategoria}
+                                    label="Categoria"
+                                    onChange={(e)=>setSelectCategoria(e.target.value)}
+                                    >
+                                    {
+                                        listCategoria.map((x)=>{
+                                            return(
+                                                <MenuItem value={x.nomeCategoria} key={x.id}>
+                                                    {x.nomeCategoria}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
+                                </Select>
+                            </FormControl>                    
+                            
                             <TextField
-                                id="filled-search"
-                                label="Nome Categoria"
-                                type="search"
+                                id="filled-input"
+                                label="Quantidade"
+                                type="number"
+                                value={quantidade}
+                                onChange = {(e)=> setQuantidade(e.target.value)}
                             />
                             <TextField
-                                id="filled-search"
-                                label="Nome Categoria"
-                                type="search"
+                                id="filled-input"
+                                label="Linha Produto"
+                                type="input"
+                                value={linhaProduto}
+                                onChange = {(e)=> setLinhaProduto(e.target.value)}
                             />
                         </div>
+
                         <div className="cadUpload">
-                            
+                            <div className="containerUpload">
+                                <TextField
+                                    type="text"
+                                    label="Upload Conta"
+                                    className="inputUpload"
+                                    value={fileName}
+                                    variant="outlined"
+                                    disabled
+                                    />
+                                <input
+                                    className="btn-upload"
+                                    id="contained-button-file"
+                                    multiple
+                                    type="file"
+                                    onChange={(e) => {
+                                        setFile(e.target.files[0]);
+                                        setFileName(e.target.files[0].name);
+                                    }}
+                                />
+                                {/* <label htmlFor="contained-button-file">
+                                    <Button
+                                        id="uploadEnergia"
+                                        variant="contained"
+                                        color="primary"
+                                        component="span"
+                                    >
+                                        Pesquisar
+                                    </Button>
+                                </label> */}
+                            </div>
+
+                            {/* <div>
+                                <Button 
+                                    variant="contained" 
+                                    component="label">
+                                    Upload
+                                    <input hidden accept="image/*" multiple type="file" />
+                                </Button>
+                            </div> */}
+                           
+                            <div className="imgProduto">
+                                <img src={Produto} alt=''></img>
+                            </div>
+                            <TextField
+                                id="outlined-multiline-static"
+                                label="Descrição"
+                                multiline
+                                rows={4}
+                                value={descricaoProduto}
+                                onChange = {(e)=> setDescricaoProduto(e.target.value)}
+                            />
                         </div>
+                        
                     </div>
-                    
+                    <div>
+                        <Button 
+                            variant="contained" 
+                            component="label"
+                            onClick={handleSubmitProd}
+                        >
+                            Enviar
+                        </Button>
+                    </div>
                 </div>
 
             </div>

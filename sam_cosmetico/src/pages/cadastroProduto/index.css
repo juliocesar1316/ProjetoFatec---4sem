@@ -2,7 +2,60 @@
     background-color: #fff;
 }
 
+.bodyCad{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    padding: 2% 5%; 
+    gap: 2%;
+}
 .tituloPage{
-    margin:2% 0;
     text-align: center;
 }
+
+.cadMarca, .cadCategoria{
+    display: flex;
+    flex-direction: column;
+    height: 50vh;
+    justify-content: space-evenly;
+    margin-right: 10%;
+    text-align: center;
+}
+
+.cadMarca{
+    border-bottom: 1px solid #000;
+    width: 25vw;
+    padding-right: 6%;
+    
+}
+.cadMarCate{
+    border-right:1px solid #000;
+}
+
+.cadProduto{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+    gap: 50px;
+
+}
+.cadLayout{
+    display: flex;
+    gap: 3%;
+    height: 100%;
+}
+.cadDados{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 4%;
+    text-align: left;
+}
+.cadUpload{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+}
+
