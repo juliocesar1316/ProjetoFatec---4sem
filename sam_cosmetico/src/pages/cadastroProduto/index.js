@@ -33,10 +33,44 @@ function CadastroProduto(){
 
     const[file, setFile] = useState('')
     const[fileName, setFileName] = useState('')
+    const[testeUpload, setTesteUpload] = useState([])
 
+    async function handleSubmitFoto(e){
+
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("file", file);
+        console.log(formData)
+        console.log(formData.get('file').name)
+        console.log(testeUpload)
+
+        try {
+            await fetch(`${baseURL}/upload`,{
+                method: "POST",
+                body: formData
+            })
+        } catch (error) {
+            return console.log(error.message);
+        }
+    }
     
-    async function handleSubmitProd(event){
-        event.preventDefault()
+    useEffect(() => {
+        async function dados() {
+          const response = await fetch(
+            "http://localhost:8080/upload",
+            {
+              method: "GET",
+            }
+          );
+    
+          const data = await response.json();
+          setTesteUpload(data);
+        }
+        dados();
+      }, []);
+
+    async function handleSubmitProd(){
+    
         const dadosProd = {
             tituloProduto: nomeProduto,
             subTituloProduto: subNomeProd,
@@ -47,24 +81,14 @@ function CadastroProduto(){
             quantidade:quantidade,
             linha: linhaProduto
         }  
-        const formData = new FormData();
-        formData.append(
-            "picture catalog",
-            new Blob([JSON.stringify(dadosProd)], {
-                type: "application/json",
-            })
-        );
-        formData.append("file", file);
-        
-        try {
-            const headers = new Headers({
-                "Content-Type": "application/json",
-              });
+        try {       
 
             await fetch(`${baseURL}/produto/cadastro_produto`, {
               method: "POST",
-              headers: headers,
-              body: formData
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(dadosProd)
             });
       
             setNomeProduto('')
@@ -79,12 +103,11 @@ function CadastroProduto(){
             return;
 
           } catch (error) {
-            return console.log(error.message);
+                return console.log(error.message);
           }
     }
 
-    async function handleSubmitCat(event){
-        event.preventDefault()
+    async function handleSubmitCat(){
         const dadosCategoria = {
             nomeCategoria: nomeCategoria,
 	        descricaoCategoria:descricaoCategoria
@@ -354,8 +377,14 @@ function CadastroProduto(){
                             </div> */}
                            
                             <div className="imgProduto">
-                                <img src={Produto} alt=''></img>
+                                {file ?  <img src={URL.createObjectURL(file)} alt="Imagem" width="150" height="150" /> : <img src={Produto} alt=''/> }
                             </div>
+                            {
+                                testeUpload.map((x)=>{
+                                    return <img src={x.files[0]} alt="Imagem" width="150" height="150" />
+                                })
+                            }
+
                             <TextField
                                 id="outlined-multiline-static"
                                 label="Descrição"
@@ -374,6 +403,14 @@ function CadastroProduto(){
                             onClick={handleSubmitProd}
                         >
                             Enviar
+                        </Button>
+
+                        <Button 
+                            variant="contained" 
+                            component="label"
+                            onClick={handleSubmitFoto}
+                        >
+                            Enviar Foto
                         </Button>
                     </div>
                 </div>

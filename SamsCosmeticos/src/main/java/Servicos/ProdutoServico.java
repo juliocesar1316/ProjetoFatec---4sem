@@ -23,12 +23,12 @@ public class ProdutoServico {
 		produto.setTituloProduto(produtoDto.getTituloProduto());
 		produto.setSubTituloProduto(produtoDto.getSubTituloProduto());
 		produto.setPreco(produtoDto.getPreco());
-		produto.setDescricao(produtoDto.getDescricao());
-		produto.setFoto(produtoDto.getFoto());
+		produto.setDescricao(produtoDto.getDescricao());		
 		produto.setCategoria(produtoDto.getCategoria());
 		produto.setMarca(produtoDto.getMarca());
 		produto.setQuantidade(produtoDto.getQuantidade());
 		produto.setLinha(produtoDto.getLinha());
+		produto.setCodigoProduto(produtoDto.getCodigoProduto());
 		produto.persist();
 		
 		return produto;

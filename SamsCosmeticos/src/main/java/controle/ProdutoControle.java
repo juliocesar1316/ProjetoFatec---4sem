@@ -37,6 +37,7 @@ public class ProdutoControle {
 	@Path("cadastro_produto")
 	public Response cadastroProduto(ProdutoDto produtoDto) {
 		Produto produto = service.cadastroProduto(produtoDto);
+		
 		return Response.ok(produto).status(201).build();
 	}
 }

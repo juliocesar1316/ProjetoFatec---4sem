@@ -1,16 +1,17 @@
 package dto;
 
+
 public class ProdutoDto {
 	
 	private String tituloProduto;
 	private String subTituloProduto;
 	private Double preco;
 	private String descricao;
-	private String foto;
 	private String categoria;
 	private String marca;
 	private Integer quantidade;
 	private String linha;
+	private Integer codigoProduto;
 	
 	
 	
@@ -45,14 +46,6 @@ public class ProdutoDto {
 		this.descricao = descricao;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
-
 	public String getCategoria() {
 		return categoria;
 	}
@@ -84,4 +77,11 @@ public class ProdutoDto {
 	public void setLinha(String linha) {
 		this.linha = linha;
 	}
+	public Integer getCodigoProduto() {
+		return codigoProduto;
+	}
+	public void setCodigoProduto(Integer codigoProduto) {
+		this.codigoProduto = codigoProduto;
+	}
+	
 }

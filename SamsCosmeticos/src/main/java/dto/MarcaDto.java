@@ -1,13 +1,6 @@
-package dados;
+package dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
-@Entity
-@Table(name = "marca")
-public class Marca extends PanacheEntity{
+public class MarcaDto {
 	private String nomeMarca;
 	private String descricaoMarca;
 	
@@ -24,5 +17,4 @@ public class Marca extends PanacheEntity{
 	public void setDescricaoMarca(String descricaoMarca) {
 		this.descricaoMarca = descricaoMarca;
 	}
-	
 }

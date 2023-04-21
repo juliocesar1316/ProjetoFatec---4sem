@@ -1,13 +1,6 @@
-package dados;
+package dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
-
-@Entity
-@Table(name = "categoria")
-public class Categoria extends PanacheEntity {
+public class CategoriaDto {
 	private String nomeCategoria;
 	private String descricaoCategoria;
 	
