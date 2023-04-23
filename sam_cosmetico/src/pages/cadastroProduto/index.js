@@ -35,42 +35,24 @@ function CadastroProduto(){
     const[fileName, setFileName] = useState('')
     const[testeUpload, setTesteUpload] = useState([])
 
-    async function handleSubmitFoto(e){
+    
+    // useEffect(() => {
+    //     async function dados() {
+    //       const response = await fetch(
+    //         "http://localhost:8080/upload/fotos",
+    //         {
+    //           method: "GET",
+    //         }
+    //       );
+        
+    //       const data = await response.json();
+    //       setTesteUpload(data);
+    //     }
+    //     dados();
+    //   }, []);
 
+    async function handleSubmitProd(e){
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("file", file);
-        console.log(formData)
-        console.log(formData.get('file').name)
-        console.log(testeUpload)
-
-        try {
-            await fetch(`${baseURL}/upload`,{
-                method: "POST",
-                body: formData
-            })
-        } catch (error) {
-            return console.log(error.message);
-        }
-    }
-    
-    useEffect(() => {
-        async function dados() {
-          const response = await fetch(
-            "http://localhost:8080/upload",
-            {
-              method: "GET",
-            }
-          );
-    
-          const data = await response.json();
-          setTesteUpload(data);
-        }
-        dados();
-      }, []);
-
-    async function handleSubmitProd(){
-    
         const dadosProd = {
             tituloProduto: nomeProduto,
             subTituloProduto: subNomeProd,
@@ -81,6 +63,7 @@ function CadastroProduto(){
             quantidade:quantidade,
             linha: linhaProduto
         }  
+        
         try {       
 
             await fetch(`${baseURL}/produto/cadastro_produto`, {
@@ -90,7 +73,16 @@ function CadastroProduto(){
               },
               body: JSON.stringify(dadosProd)
             });
-      
+
+            const formData = new FormData();
+            formData.append("file", file);
+            await fetch(`${baseURL}/upload`,{
+                method: "POST",
+                body: formData
+            })
+            
+            // OO POST ESTA PULANDO O ID DE 2 EM 2 
+            
             setNomeProduto('')
             setSubNomeProd('')
             setPrecoUnit('')
@@ -337,53 +329,28 @@ function CadastroProduto(){
 
                         <div className="cadUpload">
                             <div className="containerUpload">
-                                <TextField
-                                    type="text"
-                                    label="Upload Conta"
-                                    className="inputUpload"
-                                    value={fileName}
-                                    variant="outlined"
-                                    disabled
-                                    />
                                 <input
                                     className="btn-upload"
                                     id="contained-button-file"
                                     multiple
+                                    required
                                     type="file"
                                     onChange={(e) => {
                                         setFile(e.target.files[0]);
                                         setFileName(e.target.files[0].name);
                                     }}
-                                />
-                                {/* <label htmlFor="contained-button-file">
-                                    <Button
-                                        id="uploadEnergia"
-                                        variant="contained"
-                                        color="primary"
-                                        component="span"
-                                    >
-                                        Pesquisar
-                                    </Button>
-                                </label> */}
+                                />                                
                             </div>
 
-                            {/* <div>
-                                <Button 
-                                    variant="contained" 
-                                    component="label">
-                                    Upload
-                                    <input hidden accept="image/*" multiple type="file" />
-                                </Button>
-                            </div> */}
-                           
                             <div className="imgProduto">
-                                {file ?  <img src={URL.createObjectURL(file)} alt="Imagem" width="150" height="150" /> : <img src={Produto} alt=''/> }
+                                {file ?  <img src={URL.createObjectURL(file)} alt="Imagem" width="300" height="300"/> : <img src={Produto} alt='' width="300" height="300"/> }
                             </div>
-                            {
-                                testeUpload.map((x)=>{
-                                    return <img src={x.files[0]} alt="Imagem" width="150" height="150" />
-                                })
-                            }
+                            {/* {
+                                testeUpload.map((x)=>(
+                                        <img src={x.file} alt='' key= {x.id} width="150" height="150"/>                                        
+                                    )
+                                )
+                            } */}
 
                             <TextField
                                 id="outlined-multiline-static"
@@ -403,14 +370,6 @@ function CadastroProduto(){
                             onClick={handleSubmitProd}
                         >
                             Enviar
-                        </Button>
-
-                        <Button 
-                            variant="contained" 
-                            component="label"
-                            onClick={handleSubmitFoto}
-                        >
-                            Enviar Foto
                         </Button>
                     </div>
                 </div>

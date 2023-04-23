@@ -49,7 +49,7 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    gap: 4%;
+    gap: 5%;
     text-align: left;
 }
 .cadUpload{
@@ -58,4 +58,8 @@
     gap: 30px;
     text-align: center;
 }
-
+/* .containerUpload{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+} */

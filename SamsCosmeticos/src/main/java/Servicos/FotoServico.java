@@ -1,65 +1,72 @@
 package Servicos;
 
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.Base64;
 
-
+import java.util.zip.GZIPOutputStream;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.transaction.Transactional;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
+import javax.xml.bind.DatatypeConverter;
+import org.apache.commons.io.IOUtils;
 
 
 import dados.Foto;
+
 import dados.UploadFoto;
 import dto.FotoDto;
 
+
 @ApplicationScoped
 public class FotoServico {
-	@ConfigProperty(name = "quarkus.http.body.uploads-directory")
-	String directory;
 	
-	@Inject
-	FotoDto repository;
-	
-	public List<Foto> listaUpload(){
-		return repository.listAll();
-	}
-	
-	@Transactional
-	public Foto cadastroUpload(UploadFoto data) throws IOException{
-		
-		List<String> mimetype = Arrays.asList("image/jpg", "image/jpeg", "image/gif", "image/png");
-		
-		if(!mimetype.contains(data.getFile().contentType())) {
-			throw new IOException("File not suported");
-		}
-		if(data.getFile().size() > 1024 * 1024 * 4) {
-			throw new IOException ("File much large");
-		}
-		
-		Foto foto = new Foto();
-		String fileName = UUID.randomUUID() + "-" + data.getFile().fileName();
-		foto.setOriginalName(data.getFile().fileName());
-		foto.setKeyName(fileName);
-		foto.setMimetype(data.getFile().contentType());
-		foto.setFileSize(data.getFile().size());
-		foto.setCreated_at(new Date());
-		foto.setCodigoProduto(null);
-		foto.setDadosUpload(directory + fileName);
-		
-		repository.persist(foto);
-		
-		Files.copy(data.getFile().filePath(), Paths.get(directory + fileName));
-		
-		return foto;
-		
-	}
+	public FotoDto createResponse(Foto foto){
+        
+		FotoDto fotoDto = new FotoDto();
+
+        byte[] decodedAsIs = Base64.getUrlDecoder().decode(foto.getFile());
+
+        String decoded = DatatypeConverter.printBase64Binary(decodedAsIs);
+
+        String imageFile = new String("data:image/"+ foto.getFileExtension() +";base64," + decoded);
+        
+        fotoDto.setId(foto.getId());
+        fotoDto.setFile(imageFile);
+        fotoDto.setFileName(foto.getFileName());
+        fotoDto.setFileExtension(foto.getFileExtension());
+
+        return fotoDto;
+    }
+
+    public Foto createRequest(UploadFoto uploadFoto) throws IOException{
+
+        Foto foto = new Foto();
+
+        try {
+          byte[] compressed = IOUtils.toByteArray(uploadFoto.getFile());
+          byte[] encodedAsBytes = Base64.getUrlEncoder().encode(compressed);
+                    
+          foto.setFile(encodedAsBytes);
+          foto.setFileName(uploadFoto.getFileName());
+          foto.setFileExtension(uploadFoto.getFileExtension());
+          
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+
+        return foto;
+    }
+    
+    public static byte[] compress(final byte[] bytesImage) throws IOException {
+        if ((bytesImage == null) || (bytesImage.toString().length() == 0)) {
+          return null;
+        }
+        ByteArrayOutputStream obj = new ByteArrayOutputStream();
+        GZIPOutputStream gzip = new GZIPOutputStream(obj);
+        gzip.write(bytesImage);
+        gzip.flush();
+        gzip.close();
+        return obj.toByteArray();
+      }
 }

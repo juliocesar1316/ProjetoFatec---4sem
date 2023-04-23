@@ -2,6 +2,9 @@ package dados;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -19,7 +22,13 @@ public class Produto extends PanacheEntity{
 	private String linha;
 	private Integer codigoProduto;
 	
-	
+	public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 	
 	public String getTituloProduto() {
 		return tituloProduto;
