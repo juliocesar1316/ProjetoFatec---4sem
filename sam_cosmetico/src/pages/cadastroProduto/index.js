@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import InputLabel from '@mui/material/InputLabel';
 import Produto from '../../assets/produto.png';
 import FormControl from '@mui/material/FormControl';
+import Stack from '@mui/material/Stack';
 import baseURL from "../../utils";
 
 function CadastroProduto(){
@@ -32,8 +33,8 @@ function CadastroProduto(){
     const [descricaoProduto, setDescricaoProduto] = useState('')
 
     const[file, setFile] = useState('')
-    const[fileName, setFileName] = useState('')
-    const[testeUpload, setTesteUpload] = useState([])
+    // const[fileName, setFileName] = useState('')
+    // const[testeUpload, setTesteUpload] = useState([])
 
     
     // useEffect(() => {
@@ -80,8 +81,6 @@ function CadastroProduto(){
                 method: "POST",
                 body: formData
             })
-            
-            // OO POST ESTA PULANDO O ID DE 2 EM 2 
             
             setNomeProduto('')
             setSubNomeProd('')
@@ -329,7 +328,7 @@ function CadastroProduto(){
 
                         <div className="cadUpload">
                             <div className="containerUpload">
-                                <input
+                                {/* <input
                                     className="btn-upload"
                                     id="contained-button-file"
                                     multiple
@@ -339,12 +338,27 @@ function CadastroProduto(){
                                         setFile(e.target.files[0]);
                                         setFileName(e.target.files[0].name);
                                     }}
-                                />                                
+                                />  */}
+                                <Stack direction="row" alignItems="center" spacing={2}>
+                                    <Button variant="contained" component="label">
+                                        Upload
+                                        <input 
+                                            hidden accept="image/*" 
+                                            multiple type="file" 
+                                            required
+                                            onChange={(e) => {
+                                                setFile(e.target.files[0]);
+                                            }}
+                                            />
+                                    </Button>
+                                </Stack>
+                                <div className="imgProduto">
+                                    {file ?  <img src={URL.createObjectURL(file)} alt="Imagem" width="300" height="300"/> : <img src={Produto} alt='' width="300" height="300"/> }
+                                </div>
+                                                               
                             </div>
 
-                            <div className="imgProduto">
-                                {file ?  <img src={URL.createObjectURL(file)} alt="Imagem" width="300" height="300"/> : <img src={Produto} alt='' width="300" height="300"/> }
-                            </div>
+                            
                             {/* {
                                 testeUpload.map((x)=>(
                                         <img src={x.file} alt='' key= {x.id} width="150" height="150"/>                                        

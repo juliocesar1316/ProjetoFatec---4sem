@@ -1,0 +1,24 @@
+.containerProduto{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+
+}
+.bodyProduto{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+.filtro{
+    padding: 20px;
+    width: 25%;
+}
+.marca,.categoria{
+    padding: 15px;
+}
+.produtos{
+    display: flex;
+    gap: 10px;
+}

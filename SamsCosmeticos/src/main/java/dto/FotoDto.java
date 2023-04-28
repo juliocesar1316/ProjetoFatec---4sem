@@ -9,6 +9,7 @@ public class FotoDto{
 
     private String fileExtension;
     
+    
     public String getFileName() {
         return fileName;
     }

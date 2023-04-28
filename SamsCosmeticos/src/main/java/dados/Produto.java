@@ -5,13 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
+
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
 @Table(name = "produto")
-public class Produto extends PanacheEntity{
+public class Produto extends PanacheEntityBase{
+	
+	@Id
+	@SequenceGenerator(
+            name = "produto_id",
+            sequenceName = "produto_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_id")
+	private Long id;
 	private String tituloProduto;
 	private String subTituloProduto;
 	private Double preco;
@@ -20,15 +29,7 @@ public class Produto extends PanacheEntity{
 	private String marca;
 	private Integer quantidade;
 	private String linha;
-	private Integer codigoProduto;
-	
-	public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+	private Long codigoProduto;
 	
 	public String getTituloProduto() {
 		return tituloProduto;
@@ -93,11 +94,17 @@ public class Produto extends PanacheEntity{
 		this.linha = linha;
 	}
 	
-	public Integer getCodigoProduto() {
+	public Long getCodigoProduto() {
 		return codigoProduto;
 	}
-	public void setCodigoProduto(Integer codigoProduto) {
+	public void setCodigoProduto(Long codigoProduto) {
 		this.codigoProduto = codigoProduto;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

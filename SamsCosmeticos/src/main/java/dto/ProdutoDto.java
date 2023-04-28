@@ -11,7 +11,7 @@ public class ProdutoDto {
 	private String marca;
 	private Integer quantidade;
 	private String linha;
-	private Integer codigoProduto;
+	private Long codigoProduto;
 	
 	
 	
@@ -77,10 +77,10 @@ public class ProdutoDto {
 	public void setLinha(String linha) {
 		this.linha = linha;
 	}
-	public Integer getCodigoProduto() {
+	public Long getCodigoProduto() {
 		return codigoProduto;
 	}
-	public void setCodigoProduto(Integer codigoProduto) {
+	public void setCodigoProduto(Long codigoProduto) {
 		this.codigoProduto = codigoProduto;
 	}
 	

@@ -1,6 +1,7 @@
 package dto;
 
 public class CategoriaDto {
+	private Long id;
 	private String nomeCategoria;
 	private String descricaoCategoria;
 	
@@ -15,5 +16,11 @@ public class CategoriaDto {
 	}
 	public void setDescricaoCategoria(String descricaoCategoria) {
 		this.descricaoCategoria = descricaoCategoria;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

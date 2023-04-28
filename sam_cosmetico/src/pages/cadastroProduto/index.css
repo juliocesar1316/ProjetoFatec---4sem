@@ -58,8 +58,12 @@
     gap: 30px;
     text-align: center;
 }
-/* .containerUpload{
+.containerUpload{
     display: flex;
     flex-direction: column;
     align-items: center;
-} */
+    gap: 30px;
+}
+.imgProduto{
+    border: 1px solid rgb(118, 118, 118);
+}

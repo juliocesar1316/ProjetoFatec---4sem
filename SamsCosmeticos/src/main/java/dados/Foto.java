@@ -4,15 +4,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table (name= "foto")
 public class Foto {
 	
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@Id
+	@SequenceGenerator(
+            name = "foto_id",
+            sequenceName = "foto_id_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "foto_id")
     private Long id;
 
     private byte[] file;
@@ -22,6 +25,8 @@ public class Foto {
     private String fileName;
     
     private String fileExtension;
+    
+    private Long codFoto;
 
     
     public byte[] getFile() {
@@ -62,6 +67,14 @@ public class Foto {
 
 	public void setFilee(String filee) {
 		this.filee = filee;
+	}
+
+	public Long getCodFoto() {
+		return codFoto;
+	}
+
+	public void setCodFoto(Long codFoto) {
+		this.codFoto = codFoto;
 	}
 
 	
