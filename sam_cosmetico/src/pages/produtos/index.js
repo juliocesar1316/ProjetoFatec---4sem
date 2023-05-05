@@ -14,6 +14,10 @@ import ImageList from '@mui/material/ImageList';
 import "./style.css"
 import { useEffect, useState } from "react";
 import baseURL from "../../utils";
+import ModalCarrinho from "../../components/modalCarrinho";
+import CloseIcon from '@mui/icons-material/Close';
+
+
 
 function Produto(){
 
@@ -23,6 +27,9 @@ function Produto(){
     const [dadosMarcas, setDadosMarcas] = useState([])
     const [dadosProdFoto, setDadosProdFoto] = useState([])
     const [filtroMarca, setFiltroMarca] = useState([])
+    const [filtroCategoria, setFiltroCategoria] = useState([])
+    const [modal, setModal] = useState(false)
+
 
     async function dadosProduto() {
         try {
@@ -92,11 +99,40 @@ function Produto(){
             ...prod
         }))
         setDadosProdFoto(juncao)
+        
         return;
     }
 
-    function handleChange(event){
-        console.log(event)
+    function handleModal(){
+        setModal(false)
+    }
+
+    async function handleCadVenda(dados){
+        const dadosCarrinho = {
+            tituloProduto: dados.tituloProduto,
+            subTituloProduto: dados.subTituloProduto,
+            preco: dados.preco,
+            descricao: dados.descricao,
+            categoria: dados.categoria,
+            marca: dados.marca,
+            quantidade:dados.quantidade,
+            linha: dados.linha,
+            codigoProduto:dados.id
+        } 
+        try {       
+
+            await fetch(`${baseURL}/venda/cadastro_venda`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(dadosCarrinho)
+            });
+            return;
+
+          } catch (error) {
+                return console.log(error.message);
+          }
     }
 
     useEffect(() => {
@@ -120,21 +156,22 @@ function Produto(){
                 <Menu/>
             </div>
             <div className="bodyProduto">
-                <div >   
-                    <Card sx={{ width: 300 }} elevation={4} className="filtro">
+                <div className="filtroo">   
+                    <Card sx={{ width: 220 }} elevation={4} className="filtro">
                         <h3>Marcas</h3>
                         <div className="marca">
                             <FormGroup>
                                 {dadosMarcas.map((x)=>{
-                                    return <FormControlLabel 
-                                        control={<Checkbox  
-                                            name={x.nomeMarca} 
-                                            onChange={(e) => handleChange(e.target.name)}
-                                            />} 
-                                        label={x.nomeMarca} 
+                                    return (
+                                        <FormControlLabel 
+                                            control={<Checkbox  
+                                                name={x.nomeMarca} 
+                                                onChange={(e) => e.target.checked ?  setFiltroMarca([...filtroMarca, e.target.name]) : setFiltroMarca(filtroMarca.filter((x)=> x !== e.target.name))} 
+                                                />} 
+                                            label={x.nomeMarca} 
                                         />
+                                    )
                                 })}
-                                {/* <button onClick={juntaDados}>teste</button> */}
                             </FormGroup>
                         </div>
 
@@ -142,7 +179,12 @@ function Produto(){
                         <div className="categoria">
                             <FormGroup>
                                 {dadosCategorias.map((x)=>{
-                                    return <FormControlLabel control={<Checkbox />} label={x.nomeCategoria} />
+                                    return <FormControlLabel 
+                                        control={<Checkbox 
+                                            name={x.nomeCategoria} 
+                                            onChange={(e) => e.target.checked ?  setFiltroCategoria([...filtroCategoria, e.target.name]) : setFiltroCategoria(filtroCategoria.filter((x)=> x !== e.target.name))}
+                                            />} 
+                                        label={x.nomeCategoria} />
                                 })}
                             </FormGroup>
                         </div>
@@ -150,181 +192,57 @@ function Produto(){
                 </div>
                 <div className="produtos">
                     <ImageList sx={{ width: 1000 }} cols={3} gap={30}>
-
-                        {dadosProdFoto.map((x)=>{
+                        {dadosProdFoto
+                            .filter((x)=> filtroMarca.length > 0 ? filtroMarca.includes(x.marca): x.marca)
+                            .filter((x)=> filtroCategoria.length > 0 ? filtroCategoria.includes(x.categoria): x.categoria)
+                            .map((x)=>{
                             return (
-                                <Card sx={{ width: 300 }} elevation={4}>
+                                <Card sx={{ width: 300 }} elevation={4} key={x.id}>
                                     <CardActionArea >
                                         <CardMedia
+                                            component="img"
                                             sx={{ height: 300 }}
                                             image={x.file}
                                             title={x.tituloProduto}
+                                            alt={x.tituloProduto}
                                         />
                                         <CardContent>
-                                            <Typography gutterBottom variant="subtitle1" component="div">
+                                            <Typography gutterBottom variant="subtitle2" component="div">
                                                 {x.marca}
                                             </Typography>
                                             <Typography gutterBottom variant="h6" component="div">
                                                 {x.tituloProduto}
                                             </Typography>
                                             <Typography variant="body1" color="text.secondary">
-                                                {x.preco}
+                                                {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
+                                            </Typography>
+                                            <Typography variant="body2" color="text.secondary">
+                                                {`ou 6x R$ ${((x.preco)/6).toFixed(2).toString().replace(".", ",")} `}
                                             </Typography>
                                         </CardContent>
                                         <CardActions>
-                                            <Button size="small" sx={{ width: 300 }} variant="outlined">Comprar</Button>
+                                            {x.quantidade > 0 && (
+                                                <Button size="small" sx={{ width: 300 }} variant="outlined" onClick={()=>{setModal(true); handleCadVenda(x)}}>
+                                                    Comprar
+                                                </Button>
+                                            )}
+                                            {x.quantidade <= 0 && (
+                                                <Button size="small" sx={{ width: 300 }} variant="outlined" disabled>
+                                                    Produto Indisponivel
+                                                </Button>
+                                            )}
                                         </CardActions>
                                     </CardActionArea>
                                 </Card>
                             )
                         })}
-
-                        
-
-                        {/* <Card sx={{ width: 300 }} elevation={4}>
-                            <CardActionArea>
-                                <CardMedia
-                                    sx={{ height: 300 }}
-                                    image={Produtos}
-                                    title="nome produto"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="subtitle1" component="div">
-                                        Marca
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        Nome Produto
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        Preço
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" sx={{ width: 300 }} variant="outlined">Comprar</Button>
-                                </CardActions>
-                            </CardActionArea>
-                        </Card>
-
-                        <Card sx={{ width: 300 }} elevation={4}>
-                            <CardActionArea >
-                                <CardMedia
-                                    sx={{ height: 300 }}
-                                    image={Produtos}
-                                    title="nome produto"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="subtitle1" component="div">
-                                        Marca
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        Nome Produto
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        Preço
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" sx={{ width: 300 }} variant="outlined">Comprar</Button>
-                                </CardActions>
-                            </CardActionArea>
-                        </Card>
-
-                        <Card sx={{ width: 300 }} elevation={4}>
-                            <CardActionArea >
-                                <CardMedia
-                                    sx={{ height: 300 }}
-                                    image={Produtos}
-                                    title="nome produto"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="subtitle1" component="div">
-                                        Marca
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        Nome Produto
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        Preço
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" sx={{ width: 300 }} variant="outlined">Comprar</Button>
-                                </CardActions>
-                            </CardActionArea>
-                        </Card>
-
-                        <Card sx={{ width: 300 }} elevation={4}>
-                            <CardActionArea >
-                                <CardMedia
-                                    sx={{ height: 300 }}
-                                    image={Produtos}
-                                    title="nome produto"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="subtitle1" component="div">
-                                        Marca
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        Nome Produto
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        Preço
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" sx={{ width: 300 }} variant="outlined">Comprar</Button>
-                                </CardActions>
-                            </CardActionArea>
-                        </Card>
-
-                        <Card sx={{ width: 300 }} elevation={4}>
-                            <CardActionArea >
-                                <CardMedia
-                                    sx={{ height: 300 }}
-                                    image={Produtos}
-                                    title="nome produto"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="subtitle1" component="div">
-                                        Marca
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        Nome Produto
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        Preço
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" sx={{ width: 300 }} variant="outlined">Comprar</Button>
-                                </CardActions>
-                            </CardActionArea>
-                        </Card>
-
-                        <Card sx={{ width: 300 }} elevation={4}>
-                            <CardActionArea >
-                                <CardMedia
-                                    sx={{ height: 300 }}
-                                    image={Produtos}
-                                    title="nome produto"
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="subtitle1" component="div">
-                                        Marca
-                                    </Typography>
-                                    <Typography gutterBottom variant="h6" component="div">
-                                        Nome Produto
-                                    </Typography>
-                                    <Typography variant="body1" color="text.secondary">
-                                        Preço
-                                    </Typography>
-                                </CardContent>
-                                <CardActions>
-                                    <Button size="small" sx={{ width: 300 }} variant="outlined">Comprar</Button>
-                                </CardActions>
-                            </CardActionArea>
-                        </Card> */}
                     </ImageList>
+                    {modal && (
+                        <div className="modal"> 
+                            <CloseIcon className="btn-modal" onClick={handleModal}/>
+                            <ModalCarrinho/>
+                        </div>
+                    )}
                 </div>
             </div>
 

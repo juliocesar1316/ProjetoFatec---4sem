@@ -1,23 +1,7 @@
-package dados;
+package dto;
 
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
-@Entity
-@Table(name = "venda")
-public class Venda extends PanacheEntityBase{
-	@Id
-	@SequenceGenerator(
-            name = "venda_id",
-            sequenceName = "venda_id_seq")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venda_id")
-	private Long id;
+public class VendaDto {
+	
 	private String tituloProduto;
 	private String subTituloProduto;
 	private Double preco;
@@ -27,6 +11,7 @@ public class Venda extends PanacheEntityBase{
 	private Integer quantidade;
 	private String linha;
 	private Long codigoProduto;
+	
 	
 	public String getTituloProduto() {
 		return tituloProduto;
@@ -81,11 +66,5 @@ public class Venda extends PanacheEntityBase{
 	}
 	public void setCodigoProduto(Long codigoProduto) {
 		this.codigoProduto = codigoProduto;
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

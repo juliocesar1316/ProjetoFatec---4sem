@@ -5,8 +5,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
+import { useState } from "react";
+import ModalCarrinho from "../modalCarrinho";
+import CloseIcon from '@mui/icons-material/Close';
 
 function Menu(){
+    const [modalMenu, setModalMenu] = useState('')
 
     const SearchIconWrapper = styled('div')(({ theme }) => ({
         padding: theme.spacing(0, 2),
@@ -52,6 +56,10 @@ function Menu(){
         },
       }));
 
+      function handleModal(){
+        setModalMenu(false)
+    }
+
     return(
         <div className="menu">
             <img src={Logo} alt="logo Site" className="imgLogo"></img>
@@ -69,8 +77,14 @@ function Menu(){
                 <div>
                     <a href="/">Minha Conta <br/> Entre ou Cadastre-se</a>
                 </div>
-                <ShoppingCartIcon/>
+                <ShoppingCartIcon className="carrinho" onClick={()=>setModalMenu(true)}/>
             </div>
+            {modalMenu &&(
+              <div className="modalMenu"> 
+                <CloseIcon className="btn-modalMenu" onClick={handleModal}/>
+                <ModalCarrinho/>
+              </div>
+            )}
         </div>
     )
 }
