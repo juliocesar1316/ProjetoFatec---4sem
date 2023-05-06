@@ -9,6 +9,8 @@ function ModalCarrinho(){
     const [dadosModal, setDadosModal] = useState([])
     const [foto, setFoto] = useState([])
     const [carrinho, setCarrinho] = useState([])
+    
+
 
     async function dadosCarrinho() {
         try {
@@ -40,6 +42,19 @@ function ModalCarrinho(){
         }
     }
 
+    async function deleteCarrinho(id) {
+        try {
+            await fetch(
+                `${baseURL}/venda/${id}`,{
+                    method: "DELETE"
+                }
+            );
+            return dadosCarrinho();
+        } catch (error) {
+            return console.log(error.message); 
+        }
+    }
+
     function juntaDados(){
         const juncao = dadosModal.map((car)=>({
             ...foto.find((fot)=> fot.id === (car.codigoProduto)),
@@ -56,6 +71,7 @@ function ModalCarrinho(){
     useEffect(()=>{
         juntaDados()
     }, [dadosModal,foto])
+
 
     return(
         <div className="containerModal">
@@ -85,7 +101,7 @@ function ModalCarrinho(){
                                         {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
                                     </Typography>
                                 </div> 
-                                <DeleteIcon className='btn_delete'/>
+                                <DeleteIcon className='btn_delete' onClick={()=> deleteCarrinho(x.id)}/>
                             </div>
                         
                     </div>
