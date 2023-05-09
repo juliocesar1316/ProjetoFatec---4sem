@@ -4,6 +4,7 @@ import "./style.css"
 import DeleteIcon from '@mui/icons-material/Delete';
 import baseURL from '../../utils';
 import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
 
 function ModalCarrinho(){
     const [dadosModal, setDadosModal] = useState([])
@@ -60,7 +61,18 @@ function ModalCarrinho(){
             ...foto.find((fot)=> fot.id === (car.codigoProduto)),
             ...car
         }))
-        return setCarrinho(juncao)
+        
+        const carrinhoAtualizado = juncao.reduce((acc, produto) => {
+            const produtoExistente = acc.find(p => p.codigoProduto === produto.codigoProduto);
+            if (produtoExistente) {
+              produtoExistente.quantidade += produto.quantidade;
+              produtoExistente.preco +=produto.preco
+            } else {
+              acc.push({ ...produto });
+            }
+            return acc;
+        }, [])
+        return setCarrinho(carrinhoAtualizado)
     }
 
     useEffect(()=>{
@@ -84,30 +96,38 @@ function ModalCarrinho(){
 
             <div className="produtoModal">
                 <h2>Meus produtos</h2>
-                
                 {carrinho.map((x)=>(
                     <div>
                         <div className='vertical'></div>
                             <div className='info'>
                                 <img src={x.file} alt='' key= {x.id} width="100" height="100"/>
                                 <div className='infoTitulo'>
-                                    <Typography variant="body2" color="text.primary">
+                                    <Typography variant="h5" color="text.primary">
                                         {x.tituloProduto}
                                     </Typography>
-                                    <Typography variant="subtitle1" color="text.secondary">
+                                    <Typography variant="caption" color="text.primary">
                                         {x.marca}
                                     </Typography>
-                                    <Typography variant="h6" color="text.secondary">
-                                        {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
-                                    </Typography>
+                                    <div className='qtdProduto'>
+                                        <Typography variant="subtitle1" color="text.primary">
+                                            Qtd: {x.quantidade}
+                                        </Typography>
+                                    </div>
+                                    
                                 </div> 
-                                <DeleteIcon className='btn_delete' onClick={()=> deleteCarrinho(x.id)}/>
+                                <div className='infoValores'>
+                                    <IconButton aria-label="delete" size="large" onClick={()=> deleteCarrinho(x.id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                    <Typography variant="h5" >
+                                            {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
+                                    </Typography>
+                                </div>
+                                
                             </div>
                         
                     </div>
-                ))}
-                
-                
+                ))}                
             </div>
 
             <div >
@@ -118,7 +138,7 @@ function ModalCarrinho(){
                             Valor da compra
                         </Typography>
                         <Typography variant="h5" color="text.primary">
-                        {`R$ ${(carrinho.reduce((soma, x) => {return soma + x.preco },0)).toFixed(2).toString().replace(".", ",")}`}
+                            {`R$ ${(carrinho.reduce((soma, x) => {return soma + x.preco },0)).toFixed(2).toString().replace(".", ",")}`}
                         </Typography>
                     </div>
                 </div>

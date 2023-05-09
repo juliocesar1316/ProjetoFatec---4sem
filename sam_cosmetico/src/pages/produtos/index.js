@@ -16,11 +16,13 @@ import { useEffect, useState } from "react";
 import baseURL from "../../utils";
 import ModalCarrinho from "../../components/modalCarrinho";
 import CloseIcon from '@mui/icons-material/Close';
+import ProdutoDescritivo from "../produtoDescricao";
+import { useNavigate } from "react-router-dom";
 
 
 
 function Produto(){
-
+    const navigate = useNavigate();
     const [dadosProdutos, setDadosProdutos] = useState([])
     const [dadosFotos, setDadosFotos] = useState([])
     const [dadosCategorias, setDadosCategorias] = useState([])
@@ -115,7 +117,7 @@ function Produto(){
             descricao: dados.descricao,
             categoria: dados.categoria,
             marca: dados.marca,
-            quantidade:dados.quantidade,
+            quantidade:1,
             linha: dados.linha,
             codigoProduto:dados.id
         } 
@@ -133,6 +135,10 @@ function Produto(){
           } catch (error) {
                 return console.log(error.message);
           }
+    }
+
+    function redirecionar(e){
+        navigate('/produtoDescritivo',{ state: { e } })
     }
 
     useEffect(() => {
@@ -198,7 +204,7 @@ function Produto(){
                             .map((x)=>{
                             return (
                                 <Card sx={{ width: 300 }} elevation={4} key={x.id}>
-                                    <CardActionArea >
+                                    <CardActionArea onClick={()=>redirecionar(x) }>
                                         <CardMedia
                                             component="img"
                                             sx={{ height: 300 }}

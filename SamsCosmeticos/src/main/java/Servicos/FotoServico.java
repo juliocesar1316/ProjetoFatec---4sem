@@ -4,7 +4,6 @@ package Servicos;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Optional;
 import java.util.zip.GZIPOutputStream;
 import javax.enterprise.context.ApplicationScoped;
 
