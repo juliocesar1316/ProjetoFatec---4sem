@@ -1,6 +1,7 @@
 package controle;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -35,6 +36,7 @@ public class VendaControle {
 		return Response.ok(venda).build();
 	}
 	
+	
 	@POST
 	@Path("cadastro_venda")
 	public Response cadastroVenda(VendaDto vendaDto) {
@@ -58,4 +60,6 @@ public class VendaControle {
 		
 		return Response.status(204).build();
 	}
+	
+	
 }

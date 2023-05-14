@@ -16,7 +16,6 @@ import { useEffect, useState } from "react";
 import baseURL from "../../utils";
 import ModalCarrinho from "../../components/modalCarrinho";
 import CloseIcon from '@mui/icons-material/Close';
-import ProdutoDescritivo from "../produtoDescricao";
 import { useNavigate } from "react-router-dom";
 
 

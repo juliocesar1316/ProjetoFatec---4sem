@@ -1,25 +1,9 @@
-package dados;
+package dto;
 
 import java.math.BigInteger;
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
-@Entity
-@Table(name = "usuario")
-public class Usuario  extends PanacheEntityBase{
-	@Id
-	@SequenceGenerator(
-            name = "usuario_id",
-            sequenceName = "usuario_id_seq")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_id")
+public class UsuarioDto {
 	private Long id;
 	private String nomeUsuario;
 	private BigInteger cpf;

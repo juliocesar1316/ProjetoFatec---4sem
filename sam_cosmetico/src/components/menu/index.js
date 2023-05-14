@@ -3,79 +3,128 @@ import Logo from "../../assets/logoSm.png"
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ModalCarrinho from "../modalCarrinho";
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from "react-router-dom";
+import baseURL from "../../utils";
+import Paper from '@mui/material/Paper';
+import InputBase from '@mui/material/InputBase';
+import IconButton from '@mui/material/IconButton';
+import Alert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 function Menu(){
     const [modalMenu, setModalMenu] = useState('')
+    const [pesquisa, setPesquisa] = useState('')
+    const navigate = useNavigate()
+    const [dadosProdutos, setDadosProdutos] = useState([])
+    const [dadosFotos, setDadosFotos] = useState([])
+    const [dadosProdFoto, setDadosProdFoto] = useState([])
+    const [status, setStatus] = useState()
 
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }));
-
-      const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        border: '1px solid black',
-        width:'30%',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-          backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        [theme.breakpoints.up('sm')]: {
-          marginLeft: theme.spacing(1),
-          
-        },
-      }));
-
-      const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
-        '& .MuiInputBase-input': {
-          padding: theme.spacing(1, 1, 1, 0),
-          // vertical padding + font size from searchIcon
-          paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-          transition: theme.transitions.create('width'),
-          width: '150%',
-          [theme.breakpoints.up('sm')]: {
-            width: '30ch',
-            '&:focus': {
-              width: '20ch',
-            },
-          },
-          
-        },
-      }));
-
-      function handleModal(){
+    function handleModal(){
         setModalMenu(false)
     }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setStatus(false)
+    }
+
+    async function dadosProduto() {
+        try {
+            const response = await fetch(
+                `${baseURL}/produto/lista_produto`,{
+                    method: "GET",
+                }
+            );
+            const data = await response.json();
+            
+            setDadosProdutos(data);
+            return;
+        } catch (error) {
+            return console.log(error.message); 
+        }
+    }
+
+  async function dadosFoto() {
+        try {
+            const response = await fetch(
+                `${baseURL}/upload/fotos`,{
+                    method: "GET",
+                }
+            );
+            const data = await response.json();
+            setDadosFotos(data);
+            
+            return;
+        } catch (error) {
+            return console.log(error.message); 
+        }
+    }
+
+    async function juntaDados(){
+        const juncao = dadosProdutos.map((prod)=>({
+            ...dadosFotos.find((foto)=> foto.id === (prod.id)),
+            ...prod
+        }))
+        setDadosProdFoto(juncao)
+        return;
+    }
+
+
+    function pesquisaProduto(e){
+        if(e){
+            navigate('/produtoDescritivo',{ state: { e } })
+            setStatus(false)
+        }
+        else{
+            setStatus(true)
+        }
+    }
+
+    useEffect(() => {
+        dadosProduto()
+        dadosFoto()
+    },[]);
+
+    useEffect(()=>{
+        juntaDados()
+    },[dadosProdutos, dadosFotos])
 
     return(
         <div className="menu">
             <img src={Logo} alt="logo Site" className="imgLogo"></img>
-            <Search>
-                <SearchIconWrapper>
-                    <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
+            <Paper
+                component="form"
+                sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+            >
+                <InputBase
+                    sx={{ ml: 1, flex: 1 }}
                     placeholder="Busque seu produto"
                     inputProps={{ 'aria-label': 'Busque seu produto' }}
+                    value={pesquisa}
+                    onChange={(e)=> setPesquisa(e.target.value)}
                 />
-            </Search>
+
+                <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                    <SearchIcon onClick={()=>pesquisaProduto(dadosProdFoto.find((x)=> x.tituloProduto === pesquisa))}/>
+                </IconButton>
+            </Paper>
+            <Snackbar open={status} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+                    Produto não encontrado
+                </Alert>
+            </Snackbar>
+
             <div className="user">
                 <AccountCircleIcon/>
-                <div>
-                    <a href="/">Minha Conta <br/> Entre ou Cadastre-se</a>
+                <div className="linkMenu">
+                    <a href="/minha_conta">Entrar na Minha Conta<br/></a>
+                    <a href="/">Cadastre-se</a>
                 </div>
                 <ShoppingCartIcon className="carrinho" onClick={()=>setModalMenu(true)}/>
             </div>

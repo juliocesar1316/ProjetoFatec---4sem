@@ -15,6 +15,7 @@ public class VendaServico {
 		return Venda.listAll();
 	}
 	
+	
 	@Transactional
 	public Venda cadastroVenda(VendaDto vendaDto) {
 		Venda venda = new Venda();
