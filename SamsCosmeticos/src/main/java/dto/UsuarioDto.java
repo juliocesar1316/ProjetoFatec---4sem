@@ -10,9 +10,12 @@ public class UsuarioDto {
 	private Date dataNascimento;
 	private BigInteger celular;
 	private String endereco;
+	private String cidade;
+	private String estado;
 	private BigInteger cep;
 	private String email;
 	private String senha;
+	private String acesso;
 	
 	public String getNomeUsuario() {
 		return nomeUsuario;
@@ -67,5 +70,23 @@ public class UsuarioDto {
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	public String getAcesso() {
+		return acesso;
+	}
+	public void setAcesso(String acesso) {
+		this.acesso = acesso;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 }

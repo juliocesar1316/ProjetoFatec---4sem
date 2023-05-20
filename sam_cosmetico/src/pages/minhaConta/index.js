@@ -65,6 +65,7 @@ export default function MinhaConta() {
 
     function confereUsuario(e){
         if(e){
+            localStorage.setItem('dado', JSON.stringify({email:e.email, senha:e.senha}));
             navigate('/',{ state: { e } })
             setStatus(false)
             return
@@ -143,11 +144,16 @@ export default function MinhaConta() {
               Entrar na Conta
             </Button>
             <Grid container>
-                <Grid item>
-                    <Link href="#" variant="body2">
-                        {"Não tem conta? Cadastre-se"}
-                    </Link>
-                </Grid>
+              <Grid item xs>
+                <Link href="/cadastro_usuario" variant="body2">
+                  Não tem conta? Cadastre-se
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="/" variant="body2">
+                  {"Home"}
+                </Link>
+              </Grid>
             </Grid>
           </Box>
         </Box>

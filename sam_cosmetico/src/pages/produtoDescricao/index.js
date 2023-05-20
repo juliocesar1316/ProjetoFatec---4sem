@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import { useState } from 'react';
 import baseURL from '../../utils';
+import Footer from '../../components/footer';
 
 function ProdutoDescritivo(){
     const location = useLocation();
@@ -75,7 +76,6 @@ function ProdutoDescritivo(){
                     <img className="fotoDescritivo" src={dados.file} alt={dados.titulo} width="500" height="500"/>
                 </Card>
                 <div className="dadosDescritivo">
-                    {/* {console.log(dados)} */}
                     <div className='tituloCard'>
                         <Typography variant="h3" color="text.primary">{dados.tituloProduto}</Typography>
                         <Typography variant="subtitle1" color="text.primary">{dados.marca}</Typography>
@@ -105,6 +105,9 @@ function ProdutoDescritivo(){
                     </div>
 
                 </div>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </div>
     )

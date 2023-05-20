@@ -1,7 +1,9 @@
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts"
+import baseURL from "../../utils";
 
-function PdfDoc(carrinho,data, endereco, cidadeFrete, cepFrete){
+function PdfDoc(carrinho,data, endereco, cidade, cep, cpf, nome, telefone, estado, email, dataUser){
+    
     pdfMake.vfs = pdfFonts.pdfMake.vfs
 
     const reportTitle = [
@@ -39,27 +41,42 @@ function PdfDoc(carrinho,data, endereco, cidadeFrete, cepFrete){
 				body: [
 					[
                         {text: 'Cliente:', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
-                        {text: 'Joao', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+                        {text: `${dataUser? dataUser.nomeUsuario : nome}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
 
                     ],
                     [
                         {text: 'Endereço:', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
-                        {text: endereco, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+                        {text: `${dataUser? dataUser.endereco : endereco}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
 
                     ],
                     [
                         {text: 'Cidade:', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
-                        {text: cidadeFrete, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+                        {text: `${dataUser? dataUser.cidade : cidade}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+
+                    ],
+                    [
+                        {text: 'Estado:', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
+                        {text: `${dataUser? dataUser.estado : estado}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
 
                     ],
                     [
                         {text: 'CEP:', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
-                        {text: cepFrete, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+                        {text: `${dataUser? dataUser.cep : cep}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
 
                     ],
                     [
                         {text: 'Telefone:', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
-                        {text: '129825045', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+                        {text: `${dataUser? dataUser.celular : telefone}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+
+                    ],
+                    [
+                        {text: 'CPF:', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
+                        {text: `${dataUser? dataUser.cpf : cpf}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
+
+                    ],
+                    [
+                        {text: 'Email', style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true, fillColor:'#325d8d', color:'#fff'},
+                        {text: `${dataUser? dataUser.email : email}`, style: 'tableHeader', fontSize: 10,alignment: 'center', bold:true}
 
                     ],
                     [
@@ -122,8 +139,31 @@ function PdfDoc(carrinho,data, endereco, cidadeFrete, cepFrete){
         footer: [rodape]
     }
 
-    pdfMake.createPdf(doc).open()
+    const pdfDocGenerator = pdfMake.createPdf(doc)
+    pdfDocGenerator.getBlob((blob) => {
+        // Chame a função para enviar o PDF quando o blob estiver pronto
+        salvarArquivo(blob);
+      });
+
+    async function salvarArquivo(blob){
+        
+        try {
+
+            const formData = new FormData();
+            formData.append("file", blob, 'arquivo.pdf');
+            console.log(formData)
+            await fetch(`${baseURL}/pdf/${dataUser? dataUser.nomeUsuario : nome}`, {
+              method: "POST",
+              body: formData
+            });
+            return;
+            
+          } catch (error) {
+            return console.log(error.message);
+          }
+    }
     
+
 }
 
 

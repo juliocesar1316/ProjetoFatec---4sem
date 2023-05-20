@@ -7,7 +7,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { useEffect, useState } from "react";
 import InputLabel from '@mui/material/InputLabel';
-import Produto from '../../assets/produto.png';
+import ProdutoSemImg from '../../assets/produto-sem-imagem.webp';
 import FormControl from '@mui/material/FormControl';
 import Stack from '@mui/material/Stack';
 import baseURL from "../../utils";
@@ -75,6 +75,7 @@ function CadastroProduto(){
               body: JSON.stringify(dadosProd)
             });
 
+            console.log(file)
             const formData = new FormData();
             formData.append("file", file);
             await fetch(`${baseURL}/upload`,{
@@ -353,7 +354,7 @@ function CadastroProduto(){
                                     </Button>
                                 </Stack>
                                 <div className="imgProduto">
-                                    {file ?  <img src={URL.createObjectURL(file)} alt="Imagem" width="300" height="300"/> : <img src={Produto} alt='' width="300" height="300"/> }
+                                    {file ?  <img src={URL.createObjectURL(file)} alt="Imagem" width="300" height="300"/> : <img src={ProdutoSemImg} alt="Imagem" width="300" height="300"/>}
                                 </div>
                                                                
                             </div>

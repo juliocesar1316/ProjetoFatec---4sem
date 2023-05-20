@@ -17,20 +17,33 @@ import baseURL from "../../utils";
 import ModalCarrinho from "../../components/modalCarrinho";
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from "react-router-dom";
-
+import Footer from '../../components/footer'
 
 
 function Produto(){
     const navigate = useNavigate();
+    const categoria = localStorage.getItem('categoria')
     const [dadosProdutos, setDadosProdutos] = useState([])
     const [dadosFotos, setDadosFotos] = useState([])
     const [dadosCategorias, setDadosCategorias] = useState([])
     const [dadosMarcas, setDadosMarcas] = useState([])
     const [dadosProdFoto, setDadosProdFoto] = useState([])
-    const [filtroMarca, setFiltroMarca] = useState([])
-    const [filtroCategoria, setFiltroCategoria] = useState([])
     const [modal, setModal] = useState(false)
 
+    const [filtros, setFiltros] = useState({
+        categoria: categoria,
+        filtroMarca:[],
+        filtroCategoria: []
+    })
+
+    const clearFilters = () => {
+        localStorage.removeItem('categoria');
+        setFiltros({
+          categoria: [],
+          filtroMarca: [],
+          filtroCategoria: []
+        });
+      };
 
     async function dadosProduto() {
         try {
@@ -100,7 +113,7 @@ function Produto(){
             ...prod
         }))
         setDadosProdFoto(juncao)
-        
+        console.log(categoria)
         return;
     }
 
@@ -163,6 +176,12 @@ function Produto(){
             <div className="bodyProduto">
                 <div className="filtroo">   
                     <Card sx={{ width: 220 }} elevation={4} className="filtro">
+                        <div className="btn_filtro"> 
+                            <Button size="small" variant="contained"  onClick={clearFilters}>
+                                Remover filtros
+                            </Button>
+                        </div>
+                        
                         <h3>Marcas</h3>
                         <div className="marca">
                             <FormGroup>
@@ -171,7 +190,22 @@ function Produto(){
                                         <FormControlLabel 
                                             control={<Checkbox  
                                                 name={x.nomeMarca} 
-                                                onChange={(e) => e.target.checked ?  setFiltroMarca([...filtroMarca, e.target.name]) : setFiltroMarca(filtroMarca.filter((x)=> x !== e.target.name))} 
+                                                onChange={(e) => {
+                                                    const { name, checked } = e.target;
+                                                    setFiltros(prevFiltros => {
+                                                        if (checked) {
+                                                        return {
+                                                            ...prevFiltros,
+                                                            filtroMarca: [...prevFiltros.filtroMarca, name]
+                                                        };
+                                                        } else {
+                                                        return {
+                                                            ...prevFiltros,
+                                                            filtroMarca: prevFiltros.filtroMarca.filter(x => x !== name)
+                                                        };
+                                                        }
+                                                    });
+                                                }}
                                                 />} 
                                             label={x.nomeMarca} 
                                         />
@@ -187,59 +221,76 @@ function Produto(){
                                     return <FormControlLabel 
                                         control={<Checkbox 
                                             name={x.nomeCategoria} 
-                                            onChange={(e) => e.target.checked ?  setFiltroCategoria([...filtroCategoria, e.target.name]) : setFiltroCategoria(filtroCategoria.filter((x)=> x !== e.target.name))}
-                                            />} 
-                                        label={x.nomeCategoria} />
+                                            onChange={(e) => {
+                                                const { name, checked } = e.target;
+                                                setFiltros(prevFiltros => {
+                                                    if (checked) {
+                                                    return {
+                                                        ...prevFiltros,
+                                                        filtroCategoria: [...prevFiltros.filtroCategoria, name]
+                                                    };
+                                                    } else {
+                                                    return {
+                                                        ...prevFiltros,
+                                                        filtroCategoria: prevFiltros.filtroCategoria.filter(x => x !== name)
+                                                    };
+                                                    }
+                                                });
+                                            }}
+                                            />}
+                                            label={x.nomeCategoria} />
                                 })}
                             </FormGroup>
                         </div>
+
                     </Card>
                 </div>
                 <div className="produtos">
                     <ImageList sx={{ width: 1000 }} cols={3} gap={30}>
                         {dadosProdFoto
-                            .filter((x)=> filtroMarca.length > 0 ? filtroMarca.includes(x.marca): x.marca)
-                            .filter((x)=> filtroCategoria.length > 0 ? filtroCategoria.includes(x.categoria): x.categoria)
+                            .filter((x)=> (filtros.categoria) != null ? filtros.categoria.includes(x.categoria) : x.categoria)
+                            .filter((x)=> (filtros.filtroMarca).length > 0 ? filtros.filtroMarca.includes(x.marca): x.marca)
+                            .filter((x)=> (filtros.filtroCategoria).length > 0 ? filtros.filtroCategoria.includes(x.categoria): x.categoria)
                             .map((x)=>{
-                            return (
-                                <Card sx={{ width: 300 }} elevation={4} key={x.id}>
-                                    <CardActionArea onClick={()=>redirecionar(x) }>
-                                        <CardMedia
-                                            component="img"
-                                            sx={{ height: 300 }}
-                                            image={x.file}
-                                            title={x.tituloProduto}
-                                            alt={x.tituloProduto}
-                                        />
-                                        <CardContent>
-                                            <Typography gutterBottom variant="subtitle2" component="div">
-                                                {x.marca}
-                                            </Typography>
-                                            <Typography gutterBottom variant="h6" component="div">
-                                                {x.tituloProduto}
-                                            </Typography>
-                                            <Typography variant="body1" color="text.secondary">
-                                                {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
-                                            </Typography>
-                                            <Typography variant="body2" color="text.secondary">
-                                                {`ou 6x R$ ${((x.preco)/6).toFixed(2).toString().replace(".", ",")} `}
-                                            </Typography>
-                                        </CardContent>
-                                        <CardActions>
-                                            {x.quantidade > 0 && (
-                                                <Button size="small" sx={{ width: 300 }} variant="outlined" onClick={()=>{setModal(true); handleCadVenda(x)}}>
-                                                    Comprar
-                                                </Button>
-                                            )}
-                                            {x.quantidade <= 0 && (
-                                                <Button size="small" sx={{ width: 300 }} variant="outlined" disabled>
-                                                    Produto Indisponivel
-                                                </Button>
-                                            )}
-                                        </CardActions>
-                                    </CardActionArea>
-                                </Card>
-                            )
+                                return (
+                                    <Card sx={{ width: 300 }} elevation={4} key={x.id}>
+                                        <CardActionArea onClick={()=>redirecionar(x) }>
+                                            <CardMedia
+                                                component="img"
+                                                sx={{ height: 300 }}
+                                                image={x.file}
+                                                title={x.tituloProduto}
+                                                alt={x.tituloProduto}
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="subtitle2" component="div">
+                                                    {x.marca}
+                                                </Typography>
+                                                <Typography gutterBottom variant="h6" component="div">
+                                                    {x.tituloProduto}
+                                                </Typography>
+                                                <Typography variant="body1" color="text.secondary">
+                                                    {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    {`ou 6x R$ ${((x.preco)/6).toFixed(2).toString().replace(".", ",")} `}
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                            <CardActions>
+                                                {x.quantidade > 0 && (
+                                                    <Button size="small" sx={{ width: 300 }} variant="outlined" onClick={(e)=>{ setModal(true); handleCadVenda(x)}}>
+                                                        Comprar
+                                                    </Button>
+                                                )}
+                                                {x.quantidade <= 0 && (
+                                                    <Button size="small" sx={{ width: 300 }} variant="outlined" disabled>
+                                                        Produto Indisponivel
+                                                    </Button>
+                                                )}
+                                            </CardActions>
+                                    </Card>
+                                )
                         })}
                     </ImageList>
                     {modal && (
@@ -250,6 +301,11 @@ function Produto(){
                     )}
                 </div>
             </div>
+
+            <div>
+                <Footer/>
+            </div>
+
 
         </div>
     )

@@ -30,6 +30,9 @@ public class UsuarioServico {
 		usuario.setCep(usuarioDto.getCep());
 		usuario.setEmail(usuarioDto.getEmail());
 		usuario.setSenha(usuarioDto.getSenha());
+		usuario.setAcesso(usuarioDto.getAcesso());
+		usuario.setEstado(usuarioDto.getEstado());
+		usuario.setCidade(usuarioDto.getCidade());
 		usuario.persist();
 		
 		return usuario;
@@ -55,6 +58,9 @@ public class UsuarioServico {
 		usuario.setCep(usuarioDto.getCep());
 		usuario.setEmail(usuarioDto.getEmail());
 		usuario.setSenha(usuarioDto.getSenha());
+		usuario.setAcesso(usuarioDto.getAcesso());
+		usuario.setEstado(usuarioDto.getEstado());
+		usuario.setCidade(usuarioDto.getCidade());
 		usuario.persist();
 	}
 	

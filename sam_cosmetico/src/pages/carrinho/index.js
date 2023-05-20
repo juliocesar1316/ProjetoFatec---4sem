@@ -15,6 +15,7 @@ import TextField from '@mui/material/TextField';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PdfDoc from '../../components/geradorPdf';
 import "./style.css"
+import Footer from '../../components/footer';
 
 
 function Carrinho(){
@@ -27,6 +28,14 @@ function Carrinho(){
     const [rua, setRua] = useState('')
     const [numero, setNumero] = useState('')
     const [cidade, setCidade] = useState('')
+    const [estado, setEstado] = useState('')
+    const [cpf, setCpf] = useState('')
+    const [telefone, setTelefone] = useState('')
+    const [nome, setNome] = useState('')
+    const [email, setEmail] = useState('')
+    const [dadosUser, setDadosUser] = useState('')
+    const [userConfirmacao, setUserConfirmacao] = useState('')
+    const [dataUser, setDataUser] = useState(null)
 
     
 
@@ -123,29 +132,64 @@ function Carrinho(){
           }
     }
 
+    async function dadosUsuario() {
+        try {
+            const response = await fetch(
+                `${baseURL}/usuario/lista_usuario`,{
+                    method: "GET",
+                }
+            );
+            const data = await response.json();
+            
+            setDadosUser(data);
+            return;
+        } catch (error) {
+            return console.log(error.message); 
+        }
+    }
+
     function pdf(){
+        try {
+            const UserDado = JSON.parse(userConfirmacao)
+            
+            if(UserDado){
+                const teste = dadosUser.find((y) => ((y.email === UserDado.email) && (y.senha === UserDado.senha)))
+                setDataUser(teste)
+                
+                
+            }
+        } catch (error) {
+            return console.log(error.message); 
+        }
         const date = new Date()
         const dia = (date.getDate()).toString()
         const mes = (date.getMonth()+1).toString()
         const data = `${(dia.length === 1) ? '0'+dia : dia}/${(mes.length === 1) ? '0'+ mes : mes}/${date.getFullYear()}`
 
         const endereco = `${rua} ${numero}, ${bairro}`
-        const cidadeFrete = cidade
-        const cepFrete = cep
+
         
-        PdfDoc(carrinho,data, endereco, cidadeFrete, cepFrete)
+        PdfDoc(carrinho,data, endereco, cidade, cep, cpf, nome, telefone, estado,email, dataUser)
 
         setCep('')
         setRua('')
         setBairro('')
         setCidade('')
         setNumero('')
+        setEstado('')
+        setNome('')
+        setTelefone('')
+        setCpf('')
+        setEmail('')
     }
 
+    
 
     useEffect(()=>{
         dadosVenda()
         dadosFoto()
+        dadosUsuario()
+        setUserConfirmacao (localStorage.getItem('dado'))
     },[])
 
     useEffect(()=>{
@@ -209,49 +253,113 @@ function Carrinho(){
                             <Typography variant="h6" color="text.primary">Dados de Entrega</Typography> 
                         </div>
                         
-                        
-                        <TextField
-                            id="filled-input"
-                            label="CEP"
-                            type="number"
-                            size="small"
-                            value = {cep}
-                            onChange = {(e) => setCep(e.target.value)}            
-                        /> 
-
-                        <TextField
-                            id="filled-input"
-                            label="Rua"
-                            type="input"
-                            size="small"
-                            value = {rua}
-                            onChange = {(e) => setRua(e.target.value)}
-                        /> 
-                        <TextField
-                            id="filled-input"
-                            label="Numero"
-                            type="number"
-                            size="small"
-                            value = {numero}
-                            onChange = {(e) => setNumero(e.target.value)}
-                        /> 
-                        <TextField
-                            id="filled-input"
-                            label="Bairro"
-                            type="input"
-                            size="small"
-                            value = {bairro}
-                            onChange = {(e) => setBairro(e.target.value)}
-                        />  
-                        <TextField
-                            id="filled-input"
-                            label="Cidade"
-                            type="input"
-                            size="small"
-                            value = {cidade}
-                            onChange = {(e) => setCidade(e.target.value)}
-                        /> 
-
+                        {
+                            userConfirmacao ? (
+                                <TextField
+                                    id="filled-input"
+                                    label="CEP"
+                                    type="number"
+                                    size="small"
+                                    fullWidth
+                                    value = {cep}
+                                    onChange = {(e) => setCep(e.target.value)}            
+                                /> 
+                            ) :
+                            (
+                                <div >
+                                    <TextField
+                                        id="filled-input"
+                                        label="CEP"
+                                        type="number"
+                                        size="small"
+                                        fullWidth
+                                        value = {cep}
+                                        onChange = {(e) => setCep(e.target.value)}            
+                                    /> 
+                                    <TextField
+                                        id="filled-input"
+                                        label="Rua"
+                                        type="input"
+                                        size="small"
+                                        fullWidth
+                                        value = {rua}
+                                        onChange = {(e) => setRua(e.target.value)}
+                                    /> 
+                                    <TextField
+                                        id="filled-input"
+                                        label="Numero"
+                                        type="number"
+                                        size="small"
+                                        fullWidth
+                                        value = {numero}
+                                        onChange = {(e) => setNumero(e.target.value)}
+                                    /> 
+                                    <TextField
+                                        id="filled-input"
+                                        label="Bairro"
+                                        type="input"
+                                        size="small"
+                                        fullWidth
+                                        value = {bairro}
+                                        onChange = {(e) => setBairro(e.target.value)}
+                                    />  
+                                    <TextField
+                                        id="filled-input"
+                                        label="Cidade"
+                                        type="input"
+                                        size="small"
+                                        fullWidth
+                                        value = {cidade}
+                                        onChange = {(e) => setCidade(e.target.value)}
+                                    /> 
+                                    <TextField
+                                        id="filled-input"
+                                        label="Estado"
+                                        type="input"
+                                        size="small"
+                                        fullWidth
+                                        value = {estado}
+                                        onChange = {(e) => setEstado(e.target.value)}            
+                                    />
+                                    <TextField
+                                        id="filled-input"
+                                        label="Nome Completo"
+                                        type="input"
+                                        size="small"
+                                        fullWidth
+                                        value = {nome}
+                                        onChange = {(e) => setNome(e.target.value)}            
+                                    />
+                                    <TextField
+                                        id="filled-input"
+                                        label="Telefone"
+                                        type="number"
+                                        size="small"
+                                        fullWidth
+                                        value = {telefone}
+                                        onChange = {(e) => setTelefone(e.target.value)}            
+                                    />
+                                    <TextField
+                                        id="filled-input"
+                                        label="Cpf"
+                                        type="number"
+                                        size="small"
+                                        fullWidth
+                                        value = {cpf}
+                                        onChange = {(e) => setCpf(e.target.value)}            
+                                    />
+                                    <TextField
+                                        id="filled-input"
+                                        label="E-mail"
+                                        type="email"
+                                        size="small"
+                                        fullWidth
+                                        value = {email}
+                                        onChange = {(e) => setEmail(e.target.value)}            
+                                    />
+                                </div>
+                            )
+                        }
                     </div>
                     
                     <div className='valorCarrinho'>      
@@ -289,8 +397,14 @@ function Carrinho(){
                         <Button size="small" variant="Contained" onClick={()=>pdf()}> 
                             Comprar
                         </Button> 
+                        {/* <Button size="small" variant="Contained" onClick={()=>sendWhatsAppMessage()}> 
+                            zap
+                        </Button>  */}
                     </div>
                 </div>
+            </div>
+            <div>
+                <Footer/>
             </div>
         </div>
     )

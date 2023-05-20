@@ -1,7 +1,6 @@
 import "./index.css"
 import Logo from "../../assets/logoSm.png"
 import SearchIcon from '@mui/icons-material/Search';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useState, useEffect } from "react";
 import ModalCarrinho from "../modalCarrinho";
@@ -13,6 +12,7 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
 
 function Menu(){
     const [modalMenu, setModalMenu] = useState('')
@@ -22,6 +22,9 @@ function Menu(){
     const [dadosFotos, setDadosFotos] = useState([])
     const [dadosProdFoto, setDadosProdFoto] = useState([])
     const [status, setStatus] = useState()
+    const [dadosUsuario, setDadosUsuario] = useState([])
+    const [statusUsuario, setStatusUsuario] = useState()
+    const [userDado, setUserDado] = useState({})
 
     function handleModal(){
         setModalMenu(false)
@@ -75,6 +78,35 @@ function Menu(){
         return;
     }
 
+    async function usuario(){
+        try {
+            const response = await fetch(
+                `${baseURL}/usuario/lista_usuario`,{
+                    method: "GET",
+                }
+            );
+            const data = await response.json();
+            setDadosUsuario(data);
+
+            try {
+                const dado = localStorage.getItem('dado');
+                if(dado){
+                    setUserDado(JSON.parse(dado))
+                    setStatusUsuario(true)
+                    return
+                }
+                else{
+                    setStatusUsuario(false)
+                    return
+                }
+            } catch (error) {
+                return console.log(error.message); 
+            }
+            
+        } catch (error) {
+            return console.log(error.message); 
+        }
+    }
 
     function pesquisaProduto(e){
         if(e){
@@ -89,12 +121,14 @@ function Menu(){
     useEffect(() => {
         dadosProduto()
         dadosFoto()
+        usuario()
     },[]);
 
     useEffect(()=>{
         juntaDados()
     },[dadosProdutos, dadosFotos])
 
+  
     return(
         <div className="menu">
             <img src={Logo} alt="logo Site" className="imgLogo"></img>
@@ -121,11 +155,25 @@ function Menu(){
             </Snackbar>
 
             <div className="user">
-                <AccountCircleIcon/>
-                <div className="linkMenu">
-                    <a href="/minha_conta">Entrar na Minha Conta<br/></a>
-                    <a href="/">Cadastre-se</a>
-                </div>
+                {
+                    statusUsuario ? (
+                        dadosUsuario.find((y) => (y.email === userDado.email) && (y.senha === userDado.senha)) ? (
+                          <div className="linkMenu">
+                            <Typography variant="h6">{dadosUsuario[0].nomeUsuario}</Typography>
+                            <button className="btn_sair" onClick={() => {
+                              localStorage.removeItem('dado');
+                              window.location.href = '/';
+                            }}>Sair</button>
+                          </div>
+                        ) : null
+                    ) : 
+                    (     
+                        <div className="linkMenu">
+                            <a href="/minha_conta">Entrar na Minha Conta</a>
+                            <a href="/cadastro_usuario">Cadastre-se</a>
+                        </div> 
+                    )
+                }
                 <ShoppingCartIcon className="carrinho" onClick={()=>setModalMenu(true)}/>
             </div>
             {modalMenu &&(

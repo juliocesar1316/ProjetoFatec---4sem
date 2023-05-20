@@ -5,6 +5,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import baseURL from '../../utils';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import { Navigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
 
 function ModalCarrinho(){
     const [dadosModal, setDadosModal] = useState([])
@@ -142,6 +144,17 @@ function ModalCarrinho(){
                         </Typography>
                     </div>
                 </div>
+                <div className='btn_modal'>
+                   <Button 
+                        variant="outlined" 
+                        size="medium"
+                        fullWidth
+                        onClick={()=>window.location.href = '/carrinho'}
+                    >
+                        Carrinho
+                    </Button> 
+                </div>
+                
                 
             </div>
         </div>
