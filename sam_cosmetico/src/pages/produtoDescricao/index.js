@@ -91,7 +91,7 @@ function ProdutoDescritivo(){
                         <Typography variant="h6" color="text.secondary">À vista ou em até 3x de R${((dados.preco)/3).toFixed(2).toString().replace(".", ",")} sem juros</Typography>
                     </div>
                     
-                    <Typography variant="body1" color="text.primary">descricao Typographyroduto</Typography>
+                    <Typography variant="body1" color="text.primary">{dados.descricao}</Typography>
                     <Typography variant="body1" color="text.primary">{dados.linha}</Typography>
                     <div>
                         <div className='btnDescritivo'>

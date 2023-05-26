@@ -1,6 +1,7 @@
 .containerProduto{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: rgb(250,250,250);
     min-height: 100vh;
 
@@ -30,14 +31,15 @@
     flex-grow: 1;
  
 }
-.modal{
+.modall{
     display: flex;
     justify-content: flex-end;
-    position: absolute;
+    position: fixed;
     top: 0;
-    bottom: -20%;
     left: 0;
     right: 0;
+    bottom: 0;
+    overflow: auto;
     background-color: rgba(0, 0, 0, 0.445);
     z-index: 1;
 }

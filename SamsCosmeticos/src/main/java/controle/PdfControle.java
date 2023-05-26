@@ -29,7 +29,7 @@ public class PdfControle {
     public Response uploadPdf(@PathParam("nome") String fileName, @MultipartForm FormData formData) {
         try {
             InputStream fileInputStream = formData.getFileData();
-            OutputStream outputStream = new FileOutputStream("D:/doc/" + fileName +".pdf");
+            OutputStream outputStream = new FileOutputStream("D:/Facul/BD3/pdf/" + fileName +".pdf");
             int read;
             byte[] bytes = new byte[4096];
             while ((read = fileInputStream.read(bytes)) != -1) {

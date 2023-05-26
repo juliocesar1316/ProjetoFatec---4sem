@@ -155,8 +155,7 @@ function Carrinho(){
             if(UserDado){
                 const teste = dadosUser.find((y) => ((y.email === UserDado.email) && (y.senha === UserDado.senha)))
                 setDataUser(teste)
-                
-                
+                console.log('enteo')
             }
         } catch (error) {
             return console.log(error.message); 
@@ -228,7 +227,7 @@ function Carrinho(){
                                     <TableCell component="th" scope="row" >
                                         <div className='prod'>
                                             {<img src={x.file} alt={x.tituloProduto} key= {x.id} width="72" height="72"/>}
-                                            <Typography variant="h5" color="text.primary">{x.tituloProduto}</Typography>
+                                            <Typography variant="subtitle1" color="text.primary">{x.tituloProduto}</Typography>
                                         </div>
                                     </TableCell>
                                     <TableCell align="center">
@@ -236,8 +235,8 @@ function Carrinho(){
                                         <Button variant="outlined" disabled>{x.quantidade}</Button>
                                         <Button variant="outlined" onClick={() => handleCadVenda(x)}>+</Button>
                                     </TableCell>
-                                    <TableCell align="center"><Typography variant="h6" color="text.primary">{`R$ ${(x.preco/x.quantidade).toFixed(2).toString().replace(".", ",")} `}</Typography></TableCell>
-                                    <TableCell align="center"><Typography variant="h6" color="text.primary">{`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")}`}</Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="subtitle1" color="text.primary">{`R$ ${(x.preco/x.quantidade).toFixed(2).toString().replace(".", ",")} `}</Typography></TableCell>
+                                    <TableCell align="center"><Typography variant="subtitle1" color="text.primary">{`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")}`}</Typography></TableCell>
                                     </TableRow>
                                 ))}
                                 </TableBody>

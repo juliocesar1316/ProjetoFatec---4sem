@@ -104,14 +104,14 @@ function ModalCarrinho(){
                             <div className='info'>
                                 <img src={x.file} alt='' key= {x.id} width="100" height="100"/>
                                 <div className='infoTitulo'>
-                                    <Typography variant="h5" color="text.primary">
+                                    <Typography variant="subtitle1" color="text.primary">
                                         {x.tituloProduto}
                                     </Typography>
                                     <Typography variant="caption" color="text.primary">
                                         {x.marca}
                                     </Typography>
                                     <div className='qtdProduto'>
-                                        <Typography variant="subtitle1" color="text.primary">
+                                        <Typography variant="subtitle2" color="text.primary">
                                             Qtd: {x.quantidade}
                                         </Typography>
                                     </div>
@@ -121,7 +121,7 @@ function ModalCarrinho(){
                                     <IconButton aria-label="delete" size="large" onClick={()=> deleteCarrinho(x.id)}>
                                         <DeleteIcon />
                                     </IconButton>
-                                    <Typography variant="h5" >
+                                    <Typography variant="subtitle1" >
                                             {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
                                     </Typography>
                                 </div>
@@ -136,10 +136,10 @@ function ModalCarrinho(){
                 <div className="valores">
                     <div className='vertical'></div>
                     <div className='valor'>
-                        <Typography variant="h5" color="text.primary">
+                        <Typography variant="h6" color="text.primary">
                             Valor da compra
                         </Typography>
-                        <Typography variant="h5" color="text.primary">
+                        <Typography variant="h6" color="text.primary">
                             {`R$ ${(carrinho.reduce((soma, x) => {return soma + x.preco },0)).toFixed(2).toString().replace(".", ",")}`}
                         </Typography>
                     </div>

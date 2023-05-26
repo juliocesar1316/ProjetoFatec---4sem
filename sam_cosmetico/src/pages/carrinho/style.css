@@ -1,6 +1,7 @@
 .containerCarrinho{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: rgb(250,250,250);
     min-height: 100vh;
 }

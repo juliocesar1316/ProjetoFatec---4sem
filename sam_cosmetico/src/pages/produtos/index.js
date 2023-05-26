@@ -31,7 +31,7 @@ function Produto(){
     const [modal, setModal] = useState(false)
 
     const [filtros, setFiltros] = useState({
-        categoria: categoria,
+        categoria: categoria ? [categoria] : [],
         filtroMarca:[],
         filtroCategoria: []
     })
@@ -43,7 +43,7 @@ function Produto(){
           filtroMarca: [],
           filtroCategoria: []
         });
-      };
+    };
 
     async function dadosProduto() {
         try {
@@ -113,7 +113,7 @@ function Produto(){
             ...prod
         }))
         setDadosProdFoto(juncao)
-        console.log(categoria)
+        console.log(filtros)
         return;
     }
 
@@ -162,7 +162,7 @@ function Produto(){
 
     useEffect(()=>{
         juntaDados()
-    },[dadosProdutos, dadosFotos])
+    },[dadosProdutos, dadosFotos, filtros])
     
 
     return(
@@ -248,12 +248,12 @@ function Produto(){
                 <div className="produtos">
                     <ImageList sx={{ width: 1000 }} cols={3} gap={30}>
                         {dadosProdFoto
-                            .filter((x)=> (filtros.categoria) != null ? filtros.categoria.includes(x.categoria) : x.categoria)
-                            .filter((x)=> (filtros.filtroMarca).length > 0 ? filtros.filtroMarca.includes(x.marca): x.marca)
-                            .filter((x)=> (filtros.filtroCategoria).length > 0 ? filtros.filtroCategoria.includes(x.categoria): x.categoria)
+                            .filter((x)=> (filtros.categoria).length > 0 ? (filtros.categoria).includes(x.categoria) : x.categoria) // ver como tirar o null de dentro do array e ver tambem como arrumar o modal
+                            .filter((x)=> (filtros.filtroMarca).length > 0 ? (filtros.filtroMarca).includes(x.marca): x.marca)
+                            .filter((x)=> (filtros.filtroCategoria).length > 0 ? (filtros.filtroCategoria).includes(x.categoria): x.categoria)
                             .map((x)=>{
                                 return (
-                                    <Card sx={{ width: 300 }} elevation={4} key={x.id}>
+                                    <Card sx={{ width: 300, height:489 }} elevation={4} key={x.id}>
                                         <CardActionArea onClick={()=>redirecionar(x) }>
                                             <CardMedia
                                                 component="img"
@@ -273,7 +273,7 @@ function Produto(){
                                                     {`R$ ${(x.preco).toFixed(2).toString().replace(".", ",")} `}
                                                 </Typography>
                                                 <Typography variant="body2" color="text.secondary">
-                                                    {`ou 6x R$ ${((x.preco)/6).toFixed(2).toString().replace(".", ",")} `}
+                                                    {`ou 3x R$ ${((x.preco)/3).toFixed(2).toString().replace(".", ",")} `}
                                                 </Typography>
                                             </CardContent>
                                         </CardActionArea>
@@ -294,7 +294,7 @@ function Produto(){
                         })}
                     </ImageList>
                     {modal && (
-                        <div className="modal"> 
+                        <div className="modall"> 
                             <CloseIcon className="btn-modal" onClick={handleModal}/>
                             <ModalCarrinho/>
                         </div>
