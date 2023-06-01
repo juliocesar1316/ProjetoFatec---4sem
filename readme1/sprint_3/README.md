@@ -5,7 +5,7 @@
 
 <h2>SPRINT 3</h2>
 
-Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no principal objetivo do sistema, que é o cadastro, desenvolvendo a princípio as principais funções: Cadastro de produto, marca e categoria, alem dessa função foi desenvolvido tambem o menu com a barra de pesquisa e os links porem ainda sem função
+Nessa terceira sprint foi realizado a função que salva os dados do cliente como cpf, endereço, produtos escolhidos junto com a quantidade, telefone e outras informações adicionais e monta um pdf com esses dados e salva na máquina do adm do site. Além dessa função foi realizado a página de carrinho onde vai mostrar os produtos que foram escolhidos tanta da página de produtos quanto da página de produtos individual onde vai ser possível adicionar os dados caso não tenha feito o login e gerar um pdf com a função criada acima. 
 
 
 
@@ -24,7 +24,7 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
 <h2 id="dor" align="center">Definition of Ready</h2>
 
 <h3 id="backlog_sprint_1">Sprint Backlog</h3>
-<img src="./midias/sprint_backlog.png" width="700"></h1>
+<img src="./midias/backlog.png" width="700"></h1>
 
 <br>
 
@@ -42,31 +42,18 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
     <tr>
       <td>1</td>
       <td>Gerente de loja</td>
-      <td>Poder cadastrar os produtos que estou vendendo e produtos para fazer pedido</td>
-      <td>Criar um cadastro de produtos com fotos para que a visualização do produto melhore </td>
+      <td>Para uma pagina de vendas de cosmeticos é preciso ter uma pagina de vendas ou carrinho para que eu faça os pedidos</td>
+      <td>Criar uma pagina de vendas de produtos onde a pessoa ira selecionar o produto e a quantidade e ira encaminhar para compra</td>
       <td>3</td>
     </tr>
     <tr>
       <td>2</td>
       <td>Financeira</td>
-      <td>Poder cadastrar as marcas que estou vendendo como Boticario, Natura e etc.</td>
-      <td>Criar um cadastro de marca onde vai ser possivel cadastrar a marca e já vai lincar direto ao produto onde facilitara na busca pelo mesmo</td>
+      <td>Um metodo onde salva os dados do cliente como dados de endereço, produtos do carrinho e outras infromacoes essencial</td>
+      <td>Criar um pdf ao final da compra onde salva os dados do cliente como carrinho, dados pessoais e salva na maquina do adm do site</td>
       <td>3</td>
     </tr>
-    <tr>
-      <td>3</td>
-      <td>Financeira</td>
-      <td>Poder cadastrar as categorias que os produtos fazem parte como perfumaria, cabelos, infantil, masculino e feminino e etc.</td>
-      <td>Criar um cadastro de categoria onde vai ser possivel cadastrar a categoria onde vai lincar direto ao produto para facilitar na busca pela categoria</td>
-      <td>3</td>
-    </tr>
-    <tr> 
-      <td>4</td>
-      <td>Gerente de loja</td>
-      <td>Uma barra onde tenha alguns links que levam para categorias e ou marca dos produtos</td>
-      <td>Criar um menu que contanham as categorias e as marcas para que seja mais facil a pesquisa dos produtos </td>
-      <td>1</td>
-    </tr>
+    
   </table>
 </div>
 
@@ -74,14 +61,8 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
 
 <h3 id="wireframes">Wireframes </h3>
 
-<h3 align="center"> Menu</h3>
-<img src="./midias/menu.png" width="800">
-
-
-<br>
-
-<h3 align="center">Cadastros </h3>
-<img src="./midias/cadastro.png" width="800">
+<h3 align="center"> Modal Carrinho</h3>
+<img src="./midias/negocio.png" width="800">
 
 
 <br>

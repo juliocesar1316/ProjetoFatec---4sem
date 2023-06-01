@@ -4,8 +4,12 @@
 
 
 <h2>SPRINT 2</h2>
+Nessa segunda sprint foi desenvolvido o upload da foto do produto e foi decidido outra sprint para essa função pois se trata de uma função um pouco complicada, porém deu certo da forma que esperávamos.
 
-Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no principal objetivo do sistema, que é o cadastro, desenvolvendo a princípio as principais funções: Cadastro de produto, marca e categoria, alem dessa função foi desenvolvido tambem o menu com a barra de pesquisa e os links porem ainda sem função
+Além dessa função de upload foi realizado a página de produtos onde foi mostrado através de um card com algumas informações onde ao clicar é mandado para outra página onde está somente esse produto com a descrição, preço etc., de forma estendida. 
+
+Na página de produtos também foi inserido um filtro onde ao cadastrar uma categoria e/ou marca ele automaticamente é adicionado nesse filtro para ajudar na busca do produto.
+
 
 
 

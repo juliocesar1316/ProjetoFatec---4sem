@@ -75,13 +75,13 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
 <h3 id="wireframes">Wireframes </h3>
 
 <h3 align="center"> Menu</h3>
-<img src="./midias/menu.png" width="800">
+<img src="./midias/menu.png" align="center" width="800">
 
 
 <br>
 
 <h3 align="center">Cadastros </h3>
-<img src="./midias/cadastro.png" width="800">
+<img src="./midias/cadastro.png" align="center"width="800">
 
 
 <br>

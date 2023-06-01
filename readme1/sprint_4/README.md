@@ -3,7 +3,7 @@
 </h1>
 
 
-<h2>SPRINT 1</h2>
+<h2>SPRINT 4</h2>
 
 Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no principal objetivo do sistema, que é o cadastro, desenvolvendo a princípio as principais funções: Cadastro de produto, marca e categoria, alem dessa função foi desenvolvido tambem o menu com a barra de pesquisa e os links porem ainda sem função
 
@@ -24,7 +24,7 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
 <h2 id="dor" align="center">Definition of Ready</h2>
 
 <h3 id="backlog_sprint_1">Sprint Backlog</h3>
-<img src="./midias/sprint_backlog.png" width="700"></h1>
+<img src="./midias/backlog.png" width="700"></h1>
 
 <br>
 
@@ -42,30 +42,23 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
     <tr>
       <td>1</td>
       <td>Gerente de loja</td>
-      <td>Poder cadastrar os produtos que estou vendendo e produtos para fazer pedido</td>
-      <td>Criar um cadastro de produtos com fotos para que a visualização do produto melhore </td>
-      <td>3</td>
+      <td>Uma pagina principal onde vai ser possivel visualizar alguns produtos e ter uma cara pro site</td>
+      <td>Criar uma pagina de home com alguns produtos aleatorios e uma imagem de informaçoes sobre o site e coo funciona o metodo de compra </td>
+      <td>2</td>
     </tr>
     <tr>
       <td>2</td>
       <td>Financeira</td>
-      <td>Poder cadastrar as marcas que estou vendendo como Boticario, Natura e etc.</td>
-      <td>Criar um cadastro de marca onde vai ser possivel cadastrar a marca e já vai lincar direto ao produto onde facilitara na busca pelo mesmo</td>
-      <td>3</td>
+      <td>Um metodo de usuario onde ao entrar os dados que foram pedidos ja vao ser inseridos automaticamente no pedido e um metodo que separe os usuarios do adm</td>
+      <td>Criacao de um login e um cadastro de usuario onde vao ser pedidos dados essenciais para compra do pedido para que seja inserido automaticamente no pedido no final da pagina de carrinho, alem disso sera inserido uma conta como adm para liberar as paginas de cadastro</td>
+      <td>2</td>
     </tr>
     <tr>
       <td>3</td>
       <td>Financeira</td>
-      <td>Poder cadastrar as categorias que os produtos fazem parte como perfumaria, cabelos, infantil, masculino e feminino e etc.</td>
-      <td>Criar um cadastro de categoria onde vai ser possivel cadastrar a categoria onde vai lincar direto ao produto para facilitar na busca pela categoria</td>
+      <td>Uma pagina onde possa editar os dados cadastros como quantidade, preco e etc. Alem de um metodo que exclua os produtos que não fazem mais parte do sistema </td>
+      <td>Criar um pagina onde sera mostrado 3 tabelas uma de produto, uma de marca e categoria onde vai ser possivel editar os dados cadastrados atraves de um modal e um botao onde vai ser possivel excluir os dados especificos</td>
       <td>3</td>
-    </tr>
-    <tr> 
-      <td>4</td>
-      <td>Gerente de loja</td>
-      <td>Uma barra onde tenha alguns links que levam para categorias e ou marca dos produtos</td>
-      <td>Criar um menu que contanham as categorias e as marcas para que seja mais facil a pesquisa dos produtos </td>
-      <td>1</td>
     </tr>
   </table>
 </div>
@@ -74,15 +67,19 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
 
 <h3 id="wireframes">Wireframes </h3>
 
-<h3 align="center"> Menu</h3>
-<img src="./midias/menu.png" width="800">
+<h3 align="center"> Home</h3>
+<img src="./midias/home.png" width="800">
 
 
 <br>
 
-<h3 align="center">Cadastros </h3>
-<img src="./midias/cadastro.png" width="800">
+<h3 align="center">Pagina de edição e exclusão </h3>
+<img src="./midias/edicao_exclusao.png" width="800">
 
+<br>
+
+<h3 align="center">Login </h3>
+<img src="./midias/login.png" width="800">
 
 <br>
 
