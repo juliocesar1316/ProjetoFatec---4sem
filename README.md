@@ -12,6 +12,7 @@
 <a href ="#product_backlog">Product Backlog </a>  •
 <a href ="#cronograma"> Sprints </a>  • 
 <a href ="#roadmap"> Roadmap </a>  •
+<a href ="#custos"> Custo Projeto </a>  •
 <a href ="#equipe"> Equipe </a> 
  
 </p>
@@ -77,7 +78,7 @@
 <h2 align="center">
 <img src = "./readme1/projeto/roadmap1.png" /></h2>
 
-<h2 id="roadmap">Custos Projeto</h2>
+<h2 id="custos">Custos Projeto</h2>
 <h2 align="center">
 <img src = "./readme1/projeto/custos.png" /></h2>
 

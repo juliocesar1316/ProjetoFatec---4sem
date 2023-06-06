@@ -15,7 +15,7 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 
 <h2>Sumário</h2>
 <a href="#dor">DOR (Definition od Ready)</a>   <br>
-- <a href="#backlog_sprint_1">Backlog Sprint 1</a>   <br>
+- <a href="#backlog_sprint_1">Backlog Sprint</a>   <br>
 - <a href="#custos">Custos Projeto Sprint</a>   <br>
 - <a href="#use_cases"> Use Cases</a>   <br>
 - <a href="#wireframes">Wireframes</a>   <br>
@@ -102,7 +102,7 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 
 <br>
 
-<h3 align="center">Cadastros </h3>
+<h3 align="center">Método de upload </h3>
 <img src="./midias/cadastro.png" width="800">
 
 <br>

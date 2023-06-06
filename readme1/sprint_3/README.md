@@ -11,11 +11,11 @@ Nessa terceira sprint foi realizado a função que salva os dados do cliente com
 
 <h2>Sumário</h2>
 <a href="#dor">DOR (Definition od Ready)</a>   <br>
-- <a href="#backlog_sprint_1">Backlog Sprint 1</a>   <br>
+- <a href="#backlog_sprint_1">Backlog Sprint</a>   <br>
 - <a href="#custos"> Custos Projeto Sprint</a>   <br>
 - <a href="#use_cases"> Use Cases</a>   <br>
 - <a href="#wireframes">Wireframes</a>   <br>
-- <a href="#burndown_sprint_1">Burndowm Sprint 1</a>   <br>
+- <a href="#burndown_sprint_1">Burndown</a>   <br>
 <a href="#dod">DOD (Definition of Done)</a>   <br>
 - <a href="#funcionalidades_sprint_1">Funcionalidades implementadas</a>
 

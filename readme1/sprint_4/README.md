@@ -5,17 +5,17 @@
 
 <h2>SPRINT 4</h2>
 
-Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no principal objetivo do sistema, que é o cadastro, desenvolvendo a princípio as principais funções: Cadastro de produto, marca e categoria, alem dessa função foi desenvolvido tambem o menu com a barra de pesquisa e os links porem ainda sem função
+Nessa quarta sprint foi o desenvolvimento dos últimos recursos do site, onde foi finalizado a página home, com seus menus e interações, a página de login onde no menu tem um botão que leva a página de cadastro de usuário e outra que leva direto para o login, se caso for feito o cadastro ele irá redirecionar para o login. Para completar foi desenvolvido também a página de edição de dados, onde será possível editar e excluir o dado mostrado na tabela. 
 
 
 
 <h2>Sumário</h2>
 <a href="#dor">DOR (Definition od Ready)</a>   <br>
-- <a href="#backlog_sprint_1">Backlog Sprint 1</a>   <br>
+- <a href="#backlog_sprint_1">Backlog Sprint</a>   <br>
 - <a href="#custos"> Custos Projeto Sprint</a>   <br>
 - <a href="#use_cases"> Use Cases</a>   <br>
 - <a href="#wireframes">Wireframes</a>   <br>
-- <a href="#burndown_sprint_1">Burndowm Sprint 1</a>   <br>
+- <a href="#burndown_sprint_1">Burndown</a>   <br>
 <a href="#dod">DOD (Definition of Done)</a>   <br>
 - <a href="#funcionalidades_sprint_1">Funcionalidades implementadas</a>
 
