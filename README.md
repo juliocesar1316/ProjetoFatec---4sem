@@ -52,9 +52,8 @@
 
 <h2 id="model_canvas">Project Model Canvas</h2>
 
-<!--add product backlog figma figma-->
 <h2 align="center">
-<!-- <img src = "./readme/framesFigma/productBacklog.png" width="550"/></h2> -->
+<img src = "./readme1/projeto/pm canvas.png" /></h2>
 
 <h2 id="product_backlog">Product Backlog</h2>
 
@@ -72,11 +71,15 @@
 
 <!--add cronograma sprints figma-->
 <h2 align="center"> 
-<img src = "./readme1/projeto/cronograma.png" /></h2>
+<img src = "./readme1/projeto/cronograma1.png" /></h2>
 
 <h2 id="roadmap">Roadmap</h2>
 <h2 align="center">
-<img src = "./readme1/projeto/roadmap.png" /></h2>
+<img src = "./readme1/projeto/roadmap1.png" /></h2>
+
+<h2 id="roadmap">Custos Projeto</h2>
+<h2 align="center">
+<img src = "./readme1/projeto/custos.png" /></h2>
 
 <h2 id="equipe">Equipe</h2>
 

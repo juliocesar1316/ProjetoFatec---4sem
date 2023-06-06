@@ -16,10 +16,10 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 <h2>Sumário</h2>
 <a href="#dor">DOR (Definition od Ready)</a>   <br>
 - <a href="#backlog_sprint_1">Backlog Sprint 1</a>   <br>
-- <a href="#modelo_de_dados"> Modelo de dados</a>   <br>
+- <a href="#custos">Custos Projeto Sprint</a>   <br>
 - <a href="#use_cases"> Use Cases</a>   <br>
 - <a href="#wireframes">Wireframes</a>   <br>
-- <a href="#burndown_sprint_1">Burndowm Sprint 1</a>   <br>
+- <a href="#burndown_sprint_1">Burndown</a>   <br>
 <a href="#dod">DOD (Definition of Done)</a>   <br>
 - <a href="#funcionalidades_sprint_1">Funcionalidades implementadas</a>
 
@@ -29,6 +29,11 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 
 <h3 id="backlog_sprint_1">Sprint Backlog</h3>
 <img src="./midias/sprint_backlog.png" width="700"></h1>
+
+<br>
+
+<h3 id="custos">Custos Projeto Sprint</h3>
+<img src="./midias/custos2.png" width="700"></h1>
 
 <br>
 
@@ -83,6 +88,13 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 
 <br>
 
+<h3 id="burndown_sprint_1">Burndown da Sprint<h3>
+
+<h3 align="center">
+<img align="center" src="./midias/burndown.png" width="600"/></h3>
+
+<br>
+
 <h3 id="wireframes">Wireframes </h3>
 
 <h3 align="center"> Barra de pesquisa</h3>
@@ -97,13 +109,6 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 
 <h3 align="center">Produtos e Filtros </h3>
 <img src="./midias/produtos.png" width="800">
-
-<br>
-
-<h3 id="burndown_sprint_1">Burndown da Sprint<h3>
-
-<h3 align="center">
-<img align="center" src="./midias/burndown.png" width="600"/></h3>
 
 <br>
 
