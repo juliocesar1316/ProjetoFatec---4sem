@@ -29,7 +29,7 @@ Nessa quarta sprint foi o desenvolvimento dos últimos recursos do site, onde fo
 <br>
 
 <h3 id="custos">Custos Projeto Sprint</h3>
-<img src="./midias/custos4.png" align="center" width="700"></h1>
+<img src="./midias/custos4.png" align="center"></h1>
 
 <br>
 

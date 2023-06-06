@@ -33,7 +33,7 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 <br>
 
 <h3 id="custos">Custos Projeto Sprint</h3>
-<img src="./midias/custos2.png" width="700"></h1>
+<img src="./midias/custos2.png"></h1>
 
 <br>
 

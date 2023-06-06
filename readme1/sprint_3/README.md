@@ -29,7 +29,7 @@ Nessa terceira sprint foi realizado a função que salva os dados do cliente com
 <br>
 
 <h3 id="custos">Custos Projeto Sprint</h3>
-<img src="./midias/custos3.png" align="center" width="700"></h1>
+<img src="./midias/custos3.png" align="center"></h1>
 
 <br>
 
