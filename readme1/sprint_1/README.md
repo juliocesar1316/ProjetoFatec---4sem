@@ -112,4 +112,4 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
 <br>
 
 <h3 align="center">Menu</h3>
-<img align="center" src="./midias/menu.gif"/>
+<img align="center" src="./midias/Menu.gif"/>
