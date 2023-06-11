@@ -101,30 +101,15 @@ Nessa quarta sprint foi o desenvolvimento dos últimos recursos do site, onde fo
 
 <br>
 
-<!-- <h3 align="center">Formulário para cadastro de concessionárias</h3>
-<img align="center" src="./midias/dod/cadastro_concessionaria.gif"/>
+<h3 align="center">Home</h3>
+<img align="center" src="./midias/home.gif"/>
 
 <br>
 
-<h3 align="center">Formulário para cadastro de unidades</h3>
-<img align="center" src="./midias/dod/cadastro_unidade.gif"/>
+<h3 align="center">Login e usuario</h3>
+<img align="center" src="./midias/usuario.gif"/>
 
 <br>
 
-<h3 align="center">Formulário para cadastro de contrato de fornecimento de água</h3>
-<img align="center" src="./midias/dod/cadastro_contrato_agua.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro de contrato de fornecimento de energia</h3>
-<img align="center" src="./midias/dod/cadastro_contrato_energia.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro conta/fatura de água</h3>
-<img align="center" src="./midias/dod/cadastro_conta_agua.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro conta/fatura de energia</h3>
-<img align="center" src="./midias/dod/cadastro_conta_energia.gif"/> -->
+<h3 align="center">Edição e exclusão de dados</h3>
+<img align="center" src="./midias/edicao.gif"/>

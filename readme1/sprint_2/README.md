@@ -118,30 +118,20 @@ Na página de produtos também foi inserido um filtro onde ao cadastrar uma cate
 
 <br>
 
-<!-- <h3 align="center">Formulário para cadastro de concessionárias</h3>
-<img align="center" src="./midias/dod/cadastro_concessionaria.gif"/>
+<h3 align="center">Metodo de upload</h3>
+<img align="center" src="./midias/upload.gif"/>
 
 <br>
 
-<h3 align="center">Formulário para cadastro de unidades</h3>
-<img align="center" src="./midias/dod/cadastro_unidade.gif"/>
+<h3 align="center">Pagina de produtos e Filtros</h3>
+<img align="center" src="./midias/produto-e-filtro.gif"/>
 
 <br>
 
-<h3 align="center">Formulário para cadastro de contrato de fornecimento de água</h3>
-<img align="center" src="./midias/dod/cadastro_contrato_agua.gif"/>
+<h3 align="center">Pagina de produtos individual</h3>
+<img align="center" src="./midias/produto-individual.gif"/>
 
 <br>
 
-<h3 align="center">Formulário para cadastro de contrato de fornecimento de energia</h3>
-<img align="center" src="./midias/dod/cadastro_contrato_energia.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro conta/fatura de água</h3>
-<img align="center" src="./midias/dod/cadastro_conta_agua.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro conta/fatura de energia</h3>
-<img align="center" src="./midias/dod/cadastro_conta_energia.gif"/> -->
+<h3 align="center">Barra de pesquisa</h3>
+<img align="center" src="./midias/pesquisa.gif"/>

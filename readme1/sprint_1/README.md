@@ -106,30 +106,10 @@ Nessa primeira sprint o desenvolvimento do projeto se baseou em focar no princip
 
 <br>
 
-<!-- <h3 align="center">Formulário para cadastro de concessionárias</h3>
-<img align="center" src="./midias/dod/cadastro_concessionaria.gif"/>
+<h3 align="center">Formulário para cadastro</h3>
+<img align="center" src="./midias/cadastro.gif"/>
 
 <br>
 
-<h3 align="center">Formulário para cadastro de unidades</h3>
-<img align="center" src="./midias/dod/cadastro_unidade.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro de contrato de fornecimento de água</h3>
-<img align="center" src="./midias/dod/cadastro_contrato_agua.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro de contrato de fornecimento de energia</h3>
-<img align="center" src="./midias/dod/cadastro_contrato_energia.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro conta/fatura de água</h3>
-<img align="center" src="./midias/dod/cadastro_conta_agua.gif"/>
-
-<br>
-
-<h3 align="center">Formulário para cadastro conta/fatura de energia</h3>
-<img align="center" src="./midias/dod/cadastro_conta_energia.gif"/> -->
+<h3 align="center">Menu</h3>
+<img align="center" src="./midias/menu.gif"/>
